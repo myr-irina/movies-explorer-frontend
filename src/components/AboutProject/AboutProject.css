@@ -1,0 +1,138 @@
+.project-list {
+  display: flex;
+  flex-direction: row;
+  list-style-type: none;
+  padding: 0;
+  margin: 70px 0 0;
+}
+
+.project-list__item {
+  margin-right: 50px;
+}
+
+.project-list__item:last-of-type {
+  margin-right: 0;
+}
+
+.project-list__heading {
+  font-size: 20px;
+  line-height: 24px;
+  letter-spacing: -0.04em;
+  color: #000000;
+  font-weight: normal;
+  margin: 0;
+}
+
+.project-list__text {
+  margin: 26px 0 110px;
+  font-size: 14px;
+  line-height: 143%;
+}
+
+.project-blocks {
+  display: grid;
+  list-style: none;
+  grid-template-columns: 1fr 4fr;
+  padding: 0;
+  margin: 0;
+  box-sizing: border-box;
+}
+
+.project-block {
+  background: #2be080;
+  height: 36px;
+  padding: 9px 0;
+  font-weight: normal;
+  font-size: 14px;
+  line-height: 17px;
+  text-align: center;
+  margin: 0;
+  box-sizing: border-box;
+}
+
+.project-block_color_grey {
+  background: #f2f2f2;
+  height: 36px;
+  padding: 9px 0;
+  font-weight: normal;
+  font-size: 14px;
+  line-height: 17px;
+  text-align: center;
+  margin: 0;
+  box-sizing: border-box;
+}
+
+.project-block_type_text {
+  background-color: #ffff;
+  font-weight: 500;
+  font-size: 14px;
+  line-height: 17px;
+  text-align: center;
+  color: #a0a0a0;
+  margin: 14px 0 110px;
+  padding: 0;
+  box-sizing: border-box;
+  height: 17px;
+}
+
+@media screen and (max-width: 768px) {
+  .project-list__text {
+    margin: 22px 0 93px;
+    font-size: 12px;
+    line-height: 150%;
+  }
+
+  .project-list__item {
+    margin-right: 30px;
+  }
+
+  .project-block_type_text {
+    margin: 14px 0 90px;
+  }
+}
+
+@media screen and (max-width: 450px) {
+  .project-blocks {
+    grid-template-columns: 2fr 4fr;
+  }
+
+  .project-block {
+    font-size: 12px;
+    line-height: 14px;
+  }
+}
+
+@media screen and (max-width: 320px) {
+  .project-list {
+    flex-direction: column;
+    margin: 60px 0 0;
+  }
+
+  .project-list__heading {
+    font-size: 18px;
+    line-height: 22px;
+  }
+
+  .project-list__text {
+    margin: 16px 0 0 0;
+    font-size: 11px;
+    line-height: 145%;
+  }
+
+  .project-list__item {
+    margin: 0 0 60px 0;
+  }
+
+  .project-list__item:last-of-type {
+    margin: 0 0 56px 0;
+  }
+
+  .project-block {
+    font-size: 11px;
+    line-height: 13px;
+  }
+
+  .project-block_type_text {
+    margin: 10px 0 70px;
+  }
+}

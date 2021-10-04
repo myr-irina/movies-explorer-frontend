@@ -1,0 +1,60 @@
+.menu_logged-in:active{
+  transform: translateX(0);
+}
+
+.menu__link {
+  list-style-type: none;
+  color: inherit;
+  font-weight: 500;
+  font-size: 12px;
+  line-height: 16px;
+  text-decoration: none;
+  box-sizing: border-box;
+}
+
+.menu__link-button {
+  margin: 0;
+  background: #2be080;
+  height: 32px;
+  width: 76px;
+  border-radius: 3px;
+  font-weight: 500;
+  font-size: 12px;
+  line-height: 133%;
+  color: #000000;
+  margin-left: 20px;
+  border: 0;
+  box-sizing: border-box;
+}
+
+.menu__link:hover {
+  cursor: pointer;
+  opacity: 0.7;
+}
+
+.menu__link_active {
+  font-weight: 500;
+}
+
+.menu__block-movies {
+  display: flex;
+}
+
+.menu__link_color_white {
+  color: #ffff;
+}
+
+.menu__movies-block {
+  display: flex;
+  flex-direction: row;
+  justify-content: center;
+  margin-left: 44px;
+}
+
+.menu__link-movies {
+  margin-right: 16px;
+}
+
+
+
+
