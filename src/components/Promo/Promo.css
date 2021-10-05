@@ -14,7 +14,7 @@
   color: #ffffff;
   margin: 198px auto 224px;
   padding: 0;
-  max-width: 730px;
+  max-width: 57vw;
 }
 
 .promo__image {
@@ -23,11 +23,13 @@
   top: 48%;
   left: 50%;
   transform: translate(-50%, -50%);
+  max-width: 320px;
 }
 
 @media screen and (max-width: 768px) {
   .promo__text {
     margin: 340px auto 342px;
+    max-width: 95vw;
   }
 
   .promo__image {
@@ -51,7 +53,7 @@
     margin: 225px auto 246px;
     font-size: 31px;
     line-height: 39px;
-    max-width: 300px;
+    max-width: 95vw;
   }
   .promo__image {
     max-width: 248px;

@@ -5,8 +5,6 @@
 }
 
 .moviecard__content {
-  max-width: 360px;
-  height: 319px;
   background: #fdfdfd;
   box-shadow: 0px 4px 30px rgba(0, 0, 0, 0.08);
   border-radius: 6px;
@@ -33,7 +31,7 @@
   text-align: right;
   color: #a0a0a0;
   padding: 0;
-  margin: 0;
+  margin: 0 0 0 7px;
 }
 
 .moviecard__pic {
@@ -65,18 +63,32 @@
 .moviecard__button_type_saved {
   background: url("./../../images/icon_save.svg") no-repeat center;
   background-color: #ee3465;
+  background-size: 8px;
 }
 
 .moviecard__button_type_delete {
   background: url("./../../images/icon_cross.svg") no-repeat center #f9f9f9;
   border-radius: 30px;
+  background-size: 7px;
 }
 
-@media screen and (max-width: 768px) {
-  .moviecard__content {
-    max-width: 342px;
-    height: auto;
-    margin: 0;
+@media screen and (max-width: 572px) {
+  .moviecard__title {
+    font-size: 12px;
+  }
+
+  .moviecard__duration {
+    font-size: 10px;
+  }
+}
+
+@media screen and (max-width: 500px) {
+  .moviecard__title {
+    font-size: 15px;
+  }
+
+  .moviecard__duration {
+    font-size: 13px;
   }
 }
 

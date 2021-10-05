@@ -46,7 +46,6 @@
   position: absolute;
   top: 25%;
   left: 50%;
-  margin-right: -50%;
   transform: translate(-50%, -50%);
   font-size: 14px;
   line-height: 17px;
@@ -102,7 +101,7 @@
   }
 }
 
-@media screen and (max-width: 550px) {
+@media screen and (max-width: 628px) {
   .techs-stack-list {
     display: grid;
     grid-template-columns: repeat(3, 1fr);
