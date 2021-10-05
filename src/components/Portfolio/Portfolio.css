@@ -58,6 +58,7 @@
 .portfolio-list__item-pic {
   width: 20px;
   height: 20px;
+  margin-left: 40px;
 }
 
 .portfolio-list__item-pic:hover {
