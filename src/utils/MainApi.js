@@ -1,6 +1,6 @@
-import { BASE__URL } from "./constants";
+import { MAIN_API } from "./constants";
 
-class Api {
+class MainApi {
   constructor(options) {
     this._address = options.address;
     this._headers = options.headers;
@@ -13,8 +13,31 @@ class Api {
     return Promise.reject(`${res.status}`);
   }
 
-  // возвращает информацию о пользователе
-  getUserData() {
+  register({ email, password, name }) {
+    return fetch(`${this._address}/signup`, {
+      method: "POST",
+      headers: this._headers,
+      body: JSON.stringify({
+        email,
+        password,
+        name,
+      }),
+    }).then(this._checkResponse);
+  }
+
+  login({ email, password }) {
+    return fetch(`${this._address}/signin`, {
+      method: "POST",
+      headers: this._headers,
+      credentials: "include",
+      body: JSON.stringify({
+        email,
+        password,
+      }),
+    }).then(this._checkResponse);
+  }
+
+  getUserInfo() {
     return fetch(`${this._address}/users/me`, {
       method: "GET",
       headers: this._headers,
@@ -22,16 +45,31 @@ class Api {
     }).then(this._checkResponse);
   }
 
-  //обновляет информацию о пользователе
-  setUserData({ name, email }) {
+  setUserInfo(data) {
     return fetch(`${this._address}/users/me`, {
       method: "PATCH",
       headers: this._headers,
       credentials: "include",
       body: JSON.stringify({
-        name,
-        email,
+        email: data.email,
+        name: data.name,
       }),
     }).then(this._checkResponse);
   }
+
+  signOut() {
+    return fetch(`${this._address}/signout`, {
+      method: "DELETE",
+      credentials: "include",
+    }).then(this._checkResponse);
+  }
 }
+
+const mainApi = new MainApi({
+  address: MAIN_API,
+  headers: {
+    "Content-Type": "application/json",
+  },
+});
+
+export default mainApi;
