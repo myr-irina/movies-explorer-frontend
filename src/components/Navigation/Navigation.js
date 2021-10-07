@@ -43,7 +43,6 @@ export default function Navigation({ loggedIn }) {
                 Сохраненные фильмы
               </NavLink>
             </li>
-            {/* </ul> */}
 
             <NavLink
               to="/profile"

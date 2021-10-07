@@ -34,8 +34,8 @@ export default function Login(props) {
           name="email"
           type="email"
           required
-          // value={email || ""}
-          // onChange={handleEmailChange}
+          value={email || ""}
+          onChange={handleEmailSubmit}
           autoComplete="off"
         ></input>
 
@@ -45,8 +45,8 @@ export default function Login(props) {
           name="password"
           type="password"
           required
-          // value= ".............."
-          // onChange={handlePasswordSubmit}
+          value={password || ""}
+          onChange={handlePasswordSubmit}
           autoComplete="off"
         ></input>   
 

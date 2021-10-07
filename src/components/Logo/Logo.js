@@ -7,7 +7,7 @@ import './Logo.css';
 
 export default function Logo() {
   return (
-    <Link to="/signup">
+    <Link to="/">
       <img className="logo" src={LogoRegPage} alt="логотип" />
     </Link>
   );

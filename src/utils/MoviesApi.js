@@ -2,7 +2,7 @@ import { MOVIES_API } from './constants';
 
 class MoviesApi {
   constructor (options) {
-    this._address = options.address;
+    this._url = options.url;
     this._headers = options.headers;
   }
   
@@ -14,16 +14,17 @@ class MoviesApi {
   }
   
   getMovies() {
-    return fetch(`${this._address}`, {
+    return fetch(`${this._url}`, {
       method: 'GET',
       headers: this._headers,
+      credentials: "include",
     })
     .then(this._checkResponse);
   };
 };
   
 const moviesApi = new MoviesApi({
-  address: MOVIES_API,
+  url: MOVIES_API,
   headers: {
     'Content-Type': 'application/json',
   },

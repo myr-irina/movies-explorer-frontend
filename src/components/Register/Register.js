@@ -37,8 +37,8 @@ export default function Register(props) {
         <input
           className="register__field register__field-name"
           name="name"
-          // value={name || ""}
-          // onChange={handleNameChange}
+          value={name || ""}
+          onChange={handleNameChange}
           type="text"
           autoComplete="off"
           minLength="2"
@@ -52,8 +52,8 @@ export default function Register(props) {
           name="email"
           type="email"
           required
-          // value={email || ""}
-          // onChange={handleEmailChange}
+          value={email || ""}
+          onChange={handleEmailChange}
           autoComplete="off"
         ></input>
 
@@ -63,8 +63,8 @@ export default function Register(props) {
           name="password"
           type="password"
           required
-          // value= ".............."
-          // onChange={handlePasswordChange}
+          value={password || ""}
+          onChange={handlePasswordChange}
           autoComplete="off"
         ></input>
         <span className="register__input-error">Что-то пошло не так...</span>

@@ -1,7 +1,8 @@
 import React from "react";
 import "./Profile.css";
+import Header from "../Header/Header";
 
-export default function Profile() {
+export default function Profile({ loggedIn }) {
   const [name, setName] = React.useState("");
   const [email, setEmail] = React.useState("");
 
@@ -14,6 +15,7 @@ export default function Profile() {
   }
   return (
     <section className="profile">
+      <Header loggedIn={loggedIn} />
       <h2 className="profile__heading">Привет, Ирина!</h2>
       <article className="page__content">
         <form className="profile__form">

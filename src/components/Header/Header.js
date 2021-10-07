@@ -19,7 +19,7 @@ function Header({ loggedIn }) {
         <article className="header__section">
           <Logo />
           <Navigation loggedIn={loggedIn} />
-          <MobileNavigation loggedIn={loggedIn} />
+          {/* <MobileNavigation loggedIn={loggedIn}/> */}
         </article>
       </header>
     </>

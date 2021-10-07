@@ -2,7 +2,7 @@ import { MAIN_API } from "./constants";
 
 class MainApi {
   constructor(options) {
-    this._address = options.address;
+    this._url = options.url;
     this._headers = options.headers;
   }
 
@@ -14,9 +14,10 @@ class MainApi {
   }
 
   register({ email, password, name }) {
-    return fetch(`${this._address}/signup`, {
+    return fetch(`${this._url}/signup`, {
       method: "POST",
       headers: this._headers,
+      credentials: "include",
       body: JSON.stringify({
         email,
         password,
@@ -26,7 +27,7 @@ class MainApi {
   }
 
   login({ email, password }) {
-    return fetch(`${this._address}/signin`, {
+    return fetch(`${this._url}/signin`, {
       method: "POST",
       headers: this._headers,
       credentials: "include",
@@ -38,7 +39,7 @@ class MainApi {
   }
 
   getUserInfo() {
-    return fetch(`${this._address}/users/me`, {
+    return fetch(`${this._url}/users/me`, {
       method: "GET",
       headers: this._headers,
       credentials: "include",
@@ -46,7 +47,7 @@ class MainApi {
   }
 
   setUserInfo(data) {
-    return fetch(`${this._address}/users/me`, {
+    return fetch(`${this._url}/users/me`, {
       method: "PATCH",
       headers: this._headers,
       credentials: "include",
@@ -58,7 +59,43 @@ class MainApi {
   }
 
   signOut() {
-    return fetch(`${this._address}/signout`, {
+    return fetch(`${this._url}/signout`, {
+      method: "DELETE",
+      credentials: "include",
+    }).then(this._checkResponse);
+  }
+
+  saveMovie(data) {
+    return fetch(`${this._url}/movies`, {
+      method: "POST",
+      headers: this._headers,
+      credentials: "include",
+      body: JSON.stringify({
+        country: data.country,
+        director: data.director,
+        duration: data.duration,
+        year: data.year,
+        description: data.description,
+        image: data.image,
+        trailer: data.trailer,
+        thumbnail: data.thumbnail,
+        movieId: data.movieId,
+        nameRU: data.nameRU,
+        nameEN: data.nameEN,
+      }),
+    }).then(this._checkResponse);
+  }
+
+  getUserMovies() {
+    return fetch(`${this._url}/movies`, {
+      headers: this._headers,
+      credentials: "include",
+    }).then(this._checkResponse);
+  }
+
+  deleteMovie(id) {
+    return fetch(`${this._url}/movies/${id}`, {
+      headers: this._headers,
       method: "DELETE",
       credentials: "include",
     }).then(this._checkResponse);
@@ -66,7 +103,7 @@ class MainApi {
 }
 
 const mainApi = new MainApi({
-  address: MAIN_API,
+  url: MAIN_API,
   headers: {
     "Content-Type": "application/json",
   },
