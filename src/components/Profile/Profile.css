@@ -2,14 +2,14 @@
   display: flex;
   flex-direction: column;
   align-items: center;
-  padding: 90px 0 70px;
+  padding: 0 0 70px;
 }
 
 .profile__heading {
   font-weight: 500;
   font-size: 24px;
   line-height: 29px;
-  margin: 0;
+  margin: 90px 0 0 0;
   padding: 0;
   box-sizing: border-box;
 }
@@ -99,7 +99,7 @@
   cursor: pointer;
 }
 
-.profile__form-btn:last-of-type {
+.profile__form-btn_type_exit {
   margin-bottom: 0px;
   color: #ee3465;
   font-weight: 500;
@@ -107,7 +107,7 @@
 
 @media screen and (max-width: 768px) {
   .profile {
-    padding: 250px 0 70px;
+    padding: 0 0 70px;
   }
 
   .profile__form {
@@ -121,7 +121,7 @@
 
 @media screen and (max-width: 320px) {
   .profile {
-    padding: 85px 0 70px;
+    padding: 0 0 70px;
   }
 
   .profile__form {

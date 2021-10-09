@@ -27,46 +27,54 @@ function App() {
   const [isLoading, setIsLoading] = React.useState(true);
   const [movies, setMovies] = React.useState([]);
   const [savedMovies, setSavedMovies] = React.useState([]);
-  
+
   const history = useHistory();
   const location = useLocation();
 
-  React.useEffect(() => {
-    const movies = JSON.parse(localStorage.getItem("movies"));
-    if (movies) {
-      setMovies(movies);
-    }
-  }, []);
+  // React.useEffect(() => {
+  //   if (loggedIn) {
+  //     const userLocalStorage = localStorage.getItem("currentUser");
+  //     const moviesLocalStorage = localStorage.getItem("movies");
+  //     const savedMovieLocalStorage = localStorage.getItem("savedMovies");
 
-  React.useEffect(() => {
-    mainApi
-      .getUserMovies()
-      .then((userMovies) => {
-        setSavedMovies(userMovies);
-        localStorage.setItem("savedMovies", JSON.stringify(userMovies));
-      })
-      .catch((err) => {
-        console.log(err.message);
-      });
-  }, []);
+  //     if (!userLocalStorage) {
+  //       mainApi
+  //         .getUserInfo()
+  //         .then((res) => {
+  //           localStorage.setItem("currentUser", JSON.stringify(res.data));
+  //           setCurrentUser(res.data);
+  //         })
+  //         .catch((err) => console.log("Невозможно получить данные с сервера"));
+  //     } else {
+  //       setCurrentUser(JSON.parse(userLocalStorage));
+  //     }
 
-  React.useEffect(() => {
-    mainApi
-      .getUserInfo()
-      .then((user) => {
-        setCurrentUser(user);
-        setLoggedIn(true);
-        history.push(location.pathname);
-      })
-      .catch((err) => {
-        console.log(err.message);
-        setLoggedIn(false);
-        localStorage.removeItem("movies");
-        localStorage.removeItem("savedMovies");
-      });
-  });
+  //     if (!moviesLocalStorage) {
+  //       moviesApi
+  //         .getMovies()
+  //         .then((res) => {
+  //           localStorage.setItem("movies", JSON.stringify(res.data));
+  //           setMovies(res.data);
+  //         })
+  //         .catch((err) => console.log("Невозможно получить данные с сервера"));
+  //     } else {
+  //       setMovies(JSON.parse(moviesLocalStorage));
+  //     }
 
-  
+  //     if (!savedMovieLocalStorage) {
+  //       mainApi
+  //         .getUserMovies()
+  //         .then((res) => {
+  //           localStorage.setItem("savedMovies", JSON.stringify(res.data.data));
+  //           setSavedMovies(res.data.data);
+  //         })
+  //         .catch((err) => console.log("Невозможно получить данные с сервера"));
+  //     } else {
+  //       savedMovieLocalStorage(JSON.parse(savedMovieLocalStorage));
+  //     }
+  //   }
+  // }, [loggedIn]);
+
   const handleTokenCheck = React.useCallback(() => {
     mainApi
       .getUserInfo()
@@ -85,9 +93,9 @@ function App() {
     handleTokenCheck();
   }, [handleTokenCheck]);
 
-  function handleLoginSubmit(email, password) {
+  function handleLoginSubmit(data) {
     mainApi
-      .login(email, password)
+      .login(data)
       .then((res) => {
         handleTokenCheck();
         setLoggedIn(true);
@@ -106,15 +114,25 @@ function App() {
     mainApi
       .register(data)
       .then((res) => {
-        handleLoginSubmit({
-          email: data.email,
-          password: data.password,
-        });
+        handleLoginSubmit(data);
       })
       .catch((err) => {
         if (err.status === 400) {
           console.log("400 - некорректно заполнено одно из полей");
         }
+      });
+  }
+
+  function handleSignOut() {
+    mainApi
+      .signOut()
+      .then(() => {
+        setLoggedIn(false);
+        localStorage.clear();
+        history.push("/");
+      })
+      .catch((err) => {
+        console.log(`Ошибка при выходе из приложения. ${err}`);
       });
   }
 
@@ -130,18 +148,22 @@ function App() {
               loggedIn={loggedIn}
               component={Movies}
               movies={movies}
+              isLoading={isLoading}
             />
 
             <ProtectedRoute
               path="/saved-movies"
               loggedIn={loggedIn}
               component={SavedMovies}
+              isLoading={isLoading}
             />
 
             <ProtectedRoute
               path="/profile"
               loggedIn={loggedIn}
               component={Profile}
+              isLoading={isLoading}
+              onSignOut={handleSignOut}
             />
 
             <Route path="/signup">

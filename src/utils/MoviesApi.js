@@ -16,8 +16,7 @@ class MoviesApi {
   getMovies() {
     return fetch(`${this._url}`, {
       method: 'GET',
-      headers: this._headers,
-      credentials: "include",
+      headers: this._headers,      
     })
     .then(this._checkResponse);
   };

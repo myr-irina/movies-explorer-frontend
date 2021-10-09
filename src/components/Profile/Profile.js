@@ -1,8 +1,9 @@
 import React from "react";
+import { Link } from "react-router-dom";
 import "./Profile.css";
 import Header from "../Header/Header";
 
-export default function Profile({ loggedIn }) {
+export default function Profile(props) {
   const [name, setName] = React.useState("");
   const [email, setEmail] = React.useState("");
 
@@ -15,7 +16,7 @@ export default function Profile({ loggedIn }) {
   }
   return (
     <section className="profile">
-      <Header loggedIn={loggedIn} />
+      <Header loggedIn={props.loggedIn} />
       <h2 className="profile__heading">Привет, Ирина!</h2>
       <article className="page__content">
         <form className="profile__form">
@@ -50,12 +51,15 @@ export default function Profile({ loggedIn }) {
           <button className="profile__form-btn" type="submit">
             Редактировать
           </button>
+          <Link to='/'>
           <button
             className="profile__form-btn profile__form-btn_type_exit"
             type="button"
+            onClick={props.onSignOut}
           >
             Выйти из аккаунта
           </button>
+          </Link>
         </form>
       </article>
     </section>

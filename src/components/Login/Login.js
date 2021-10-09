@@ -7,17 +7,17 @@ export default function Login(props) {
   const [email, setEmail] = React.useState("");
   const [password, setPassword] = React.useState("");
 
-  function handleEmailSubmit(e) {
+  function handleEmailChange(e) {
     setEmail(e.target.value);
   }
 
-  function handlePasswordSubmit(e) {
+  function handlePasswordChange(e) {
     setPassword(e.target.value);
   }
 
   function handleSubmit(e) {
     e.preventDefault();
-    props.onLogin(email, password);
+    props.onLogin({email, password});
   }
 
   return (
@@ -35,7 +35,7 @@ export default function Login(props) {
           type="email"
           required
           value={email || ""}
-          onChange={handleEmailSubmit}
+          onChange={handleEmailChange}
           autoComplete="off"
         ></input>
 
@@ -46,7 +46,7 @@ export default function Login(props) {
           type="password"
           required
           value={password || ""}
-          onChange={handlePasswordSubmit}
+          onChange={handlePasswordChange}
           autoComplete="off"
         ></input>   
 
