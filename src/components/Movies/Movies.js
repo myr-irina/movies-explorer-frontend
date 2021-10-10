@@ -5,13 +5,13 @@ import MoviesCardList from "../MoviesCardList/MoviesCardList";
 import Footer from "./../Footer/Footer";
 import Header from "./../Header/Header";
 
-export default function Movies({loggedIn, movies}) {
+export default function Movies(props) {
   return (
     <>
       <main className="main">
-        <Header loggedIn={loggedIn}/>
+        <Header loggedIn={props.loggedIn}/>
         <SearchForm />
-        <MoviesCardList />
+        <MoviesCardList  movies={props.movies} />
         <Footer />
       </main>
     </>

@@ -4,14 +4,15 @@ import MovieCard from "./../MoviesCard/MoviesCard";
 
 import cards from "./../../utils/data";
 
-export default function MoviesCardList() {
+export default function MoviesCardList(props) {
+  console.log(props)
+  const movies = props.movies || [];
+
   return (
     <section className="movies-cardlist">
       <ul className="cards__list">
-        {cards.map((card) => (
-          // <li className="cards" key={card._id}>
-            <MovieCard card={card} key={card._id} />
-          // </li>
+        {movies.map((movie) => (
+          <MovieCard card={movie} key={movie.id} />
         ))}
       </ul>
       <button className="movies-cardlist__btn">Еще</button>

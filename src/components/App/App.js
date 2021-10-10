@@ -8,7 +8,6 @@ import {
 } from "react-router-dom";
 import "./App.css";
 
-import Header from "./../Header/Header";
 import Main from "./../Main/Main";
 import Movies from "./../Movies/Movies";
 import SavedMovies from "../SavedMovies/SavedMovies";
@@ -22,58 +21,69 @@ import moviesApi from "./../../utils/MoviesApi";
 import mainApi from "../../utils/MainApi";
 
 function App() {
-  const [currentUser, setCurrentUser] = React.useState({});
+  const [currentUser, setCurrentUser] = React.useState({
+    name: "",
+    email: "",
+  });
   const [loggedIn, setLoggedIn] = React.useState(false);
   const [isLoading, setIsLoading] = React.useState(true);
   const [movies, setMovies] = React.useState([]);
   const [savedMovies, setSavedMovies] = React.useState([]);
+ 
 
   const history = useHistory();
-  const location = useLocation();
+ 
 
-  // React.useEffect(() => {
-  //   if (loggedIn) {
-  //     const userLocalStorage = localStorage.getItem("currentUser");
-  //     const moviesLocalStorage = localStorage.getItem("movies");
-  //     const savedMovieLocalStorage = localStorage.getItem("savedMovies");
+  React.useEffect(() => {
+    if (loggedIn) {
+      const userLocalStorage = localStorage.getItem("currentUser");
+      const moviesLocalStorage = localStorage.getItem("movies");
+      const savedMovieLocalStorage = localStorage.getItem("savedMovies");
 
-  //     if (!userLocalStorage) {
-  //       mainApi
-  //         .getUserInfo()
-  //         .then((res) => {
-  //           localStorage.setItem("currentUser", JSON.stringify(res.data));
-  //           setCurrentUser(res.data);
-  //         })
-  //         .catch((err) => console.log("Невозможно получить данные с сервера"));
-  //     } else {
-  //       setCurrentUser(JSON.parse(userLocalStorage));
-  //     }
+      if (!userLocalStorage) {
+        mainApi
+          .getUserInfo()
+          .then((res) => {
+            localStorage.setItem("currentUser", JSON.stringify(res));
+            console.log(localStorage)
+            setCurrentUser(res);
+            
+          })
+          .catch((err) => console.log("Невозможно получить данные с сервера", err));
+      } else {
+        setCurrentUser(
+          JSON.parse(userLocalStorage));
+      }
 
-  //     if (!moviesLocalStorage) {
-  //       moviesApi
-  //         .getMovies()
-  //         .then((res) => {
-  //           localStorage.setItem("movies", JSON.stringify(res.data));
-  //           setMovies(res.data);
-  //         })
-  //         .catch((err) => console.log("Невозможно получить данные с сервера"));
-  //     } else {
-  //       setMovies(JSON.parse(moviesLocalStorage));
-  //     }
+      if (!moviesLocalStorage) {
+        moviesApi
+          .getMovies()
+          .then((res) => {
+            localStorage.setItem("movies", JSON.stringify(res));
+            setMovies(res);
+            console.log(res)
+          })
+          .catch((err) => console.log("Невозможно получить данные с сервера", err));
+      } else {
+        setMovies(JSON.parse(moviesLocalStorage));
+      }
 
-  //     if (!savedMovieLocalStorage) {
-  //       mainApi
-  //         .getUserMovies()
-  //         .then((res) => {
-  //           localStorage.setItem("savedMovies", JSON.stringify(res.data.data));
-  //           setSavedMovies(res.data.data);
-  //         })
-  //         .catch((err) => console.log("Невозможно получить данные с сервера"));
-  //     } else {
-  //       savedMovieLocalStorage(JSON.parse(savedMovieLocalStorage));
-  //     }
-  //   }
-  // }, [loggedIn]);
+      if (!savedMovieLocalStorage) {
+        mainApi
+          .getUserMovies()
+          .then((res) => {
+            console.log(res)
+            localStorage.setItem("savedMovies", JSON.stringify(res || []));
+            setSavedMovies(res || []);
+          })
+          .catch((err) => console.log("Невозможно получить данные с сервера", err));
+      } else {
+        setSavedMovies(JSON.parse(savedMovieLocalStorage));        
+      }
+    }
+  }, [loggedIn]);
+
+
 
   const handleTokenCheck = React.useCallback(() => {
     mainApi
@@ -98,7 +108,7 @@ function App() {
       .login(data)
       .then((res) => {
         handleTokenCheck();
-        setLoggedIn(true);
+        // setLoggedIn(true);
         history.push("/movies");
       })
       .catch((err) => {
@@ -155,6 +165,7 @@ function App() {
               path="/saved-movies"
               loggedIn={loggedIn}
               component={SavedMovies}
+              savedMovies={savedMovies}
               isLoading={isLoading}
             />
 
