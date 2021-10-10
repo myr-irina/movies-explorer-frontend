@@ -1,8 +1,10 @@
 import React from "react";
 import { useLocation } from "react-router";
 import "./MoviesCard.css";
+import { MOVIES_API } from "./../../utils/constants";
 
 export default function MoviesCard(props) {
+  console.log(props);
   const [isMovieSaved, setIsMovieSaved] = React.useState(false);
   const location = useLocation();
   const moviePath = location.pathname === "/movies";
@@ -19,13 +21,13 @@ export default function MoviesCard(props) {
   return (
     <section className="moviecard moviecard__content">
       <div className="moviecard__block">
-        <h3 className="moviecard__title">{props.card.nameRu}</h3>
+        <h3 className="moviecard__title">{props.card.nameRU}</h3>
         <p className="moviecard__duration">{props.card.duration}</p>
       </div>
       <img
         className="moviecard__pic"
-        src={props.card.thumbnail}
-        alt={`кадр из фильма ${props.card.nameRu}`}
+        // src={`${MOVIES_API}${props.card.image.formats.thumbnail.url}`}
+        alt={`Кадр из фильма ${props.card.nameRU}`}
       />
       {moviePath &&
         (isMovieSaved ? (

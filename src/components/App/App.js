@@ -19,6 +19,7 @@ import { CurrentUserContext } from "./../../contexts/CurrentUserContext";
 import ProtectedRoute from "../ProtectedRoute/ProtectedRoute";
 import moviesApi from "./../../utils/MoviesApi";
 import mainApi from "../../utils/MainApi";
+import Preloader from "./../Preloader/Preloader";
 
 function App() {
   const [currentUser, setCurrentUser] = React.useState({
@@ -29,10 +30,8 @@ function App() {
   const [isLoading, setIsLoading] = React.useState(true);
   const [movies, setMovies] = React.useState([]);
   const [savedMovies, setSavedMovies] = React.useState([]);
- 
 
   const history = useHistory();
- 
 
   React.useEffect(() => {
     if (loggedIn) {
@@ -45,14 +44,14 @@ function App() {
           .getUserInfo()
           .then((res) => {
             localStorage.setItem("currentUser", JSON.stringify(res));
-            console.log(localStorage)
+            console.log(localStorage);
             setCurrentUser(res);
-            
           })
-          .catch((err) => console.log("Невозможно получить данные с сервера", err));
+          .catch((err) =>
+            console.log("Невозможно получить данные с сервера", err)
+          );
       } else {
-        setCurrentUser(
-          JSON.parse(userLocalStorage));
+        setCurrentUser(JSON.parse(userLocalStorage));
       }
 
       if (!moviesLocalStorage) {
@@ -61,9 +60,11 @@ function App() {
           .then((res) => {
             localStorage.setItem("movies", JSON.stringify(res));
             setMovies(res);
-            console.log(res)
+            console.log(res);
           })
-          .catch((err) => console.log("Невозможно получить данные с сервера", err));
+          .catch((err) =>
+            console.log("Невозможно получить данные с сервера", err)
+          );
       } else {
         setMovies(JSON.parse(moviesLocalStorage));
       }
@@ -72,18 +73,18 @@ function App() {
         mainApi
           .getUserMovies()
           .then((res) => {
-            console.log(res)
+            console.log(res);
             localStorage.setItem("savedMovies", JSON.stringify(res || []));
             setSavedMovies(res || []);
           })
-          .catch((err) => console.log("Невозможно получить данные с сервера", err));
+          .catch((err) =>
+            console.log("Невозможно получить данные с сервера", err)
+          );
       } else {
-        setSavedMovies(JSON.parse(savedMovieLocalStorage));        
+        setSavedMovies(JSON.parse(savedMovieLocalStorage));
       }
     }
   }, [loggedIn]);
-
-
 
   const handleTokenCheck = React.useCallback(() => {
     mainApi
@@ -150,53 +151,57 @@ function App() {
     <div className="page">
       <CurrentUserContext.Provider value={currentUser}>
         <div className="page__container">
-          <Switch>
-            <Route exact path="/" component={Main} isLoading={isLoading} />
+          {isLoading ? (
+            <Preloader />
+          ) : (
+            <Switch>
+              <Route exact path="/" component={Main} />
 
-            <ProtectedRoute
-              path="/movies"
-              loggedIn={loggedIn}
-              component={Movies}
-              movies={movies}
-              isLoading={isLoading}
-            />
+              <ProtectedRoute
+                path="/movies"
+                loggedIn={loggedIn}
+                component={Movies}
+                movies={movies}
+                isLoading={isLoading}
+              />
 
-            <ProtectedRoute
-              path="/saved-movies"
-              loggedIn={loggedIn}
-              component={SavedMovies}
-              savedMovies={savedMovies}
-              isLoading={isLoading}
-            />
+              <ProtectedRoute
+                path="/saved-movies"
+                loggedIn={loggedIn}
+                component={SavedMovies}
+                savedMovies={savedMovies}
+                isLoading={isLoading}
+              />
 
-            <ProtectedRoute
-              path="/profile"
-              loggedIn={loggedIn}
-              component={Profile}
-              isLoading={isLoading}
-              onSignOut={handleSignOut}
-            />
+              <ProtectedRoute
+                path="/profile"
+                loggedIn={loggedIn}
+                component={Profile}
+                isLoading={isLoading}
+                onSignOut={handleSignOut}
+              />
 
-            <Route path="/signup">
-              {loggedIn ? (
-                <Redirect to="/movies" />
-              ) : (
-                <Register onRegister={handleRegisterSubmit} />
-              )}
-            </Route>
+              <Route path="/signup">
+                {loggedIn ? (
+                  <Redirect to="/movies" />
+                ) : (
+                  <Register onRegister={handleRegisterSubmit} />
+                )}
+              </Route>
 
-            <Route path="/signin">
-              {loggedIn ? (
-                <Redirect to="/movies" />
-              ) : (
-                <Login onLogin={handleLoginSubmit} />
-              )}
-            </Route>
+              <Route path="/signin">
+                {loggedIn ? (
+                  <Redirect to="/movies" />
+                ) : (
+                  <Login onLogin={handleLoginSubmit} />
+                )}
+              </Route>
 
-            <Route path="*">
-              <PageNotFound />
-            </Route>
-          </Switch>
+              <Route path="*">
+                <PageNotFound />
+              </Route>
+            </Switch>
+          )}
         </div>
       </CurrentUserContext.Provider>
     </div>
