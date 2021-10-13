@@ -26,7 +26,10 @@ export default function MoviesCardList(props) {
   React.useEffect(() => renderCards(), [windowWidth]);
 
   return (
+    <>
+   
     <section className="movies-cardlist">
+    {props.message && <p className="movies-message">{props.message}</p>}
       <ul className="cards__list">
         {movies.slice(0, cardsArray).map((movie) => (
           <MovieCard card={movie} key={movie.id} />
@@ -34,5 +37,6 @@ export default function MoviesCardList(props) {
       </ul>
       <button className="movies-cardlist__btn">Еще</button>
     </section>
+    </>
   );
 }

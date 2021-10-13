@@ -2,10 +2,19 @@ import React from "react";
 import { Link } from "react-router-dom";
 import "./Profile.css";
 import Header from "../Header/Header";
+import { CurrentUserContext } from "./../../contexts/CurrentUserContext";
 
 export default function Profile(props) {
-  const [name, setName] = React.useState("");
-  const [email, setEmail] = React.useState("");
+  const currentUser = React.useContext(CurrentUserContext);
+
+  const [name, setName] = React.useState(currentUser.name);
+  const [email, setEmail] = React.useState(currentUser.email);
+
+  React.useEffect(() => {
+    setName(currentUser.name);
+    setEmail(currentUser.email);
+  },[currentUser])
+
 
   function handleNameChange(e) {
     setName(e.target.value);
@@ -14,20 +23,33 @@ export default function Profile(props) {
   function handleEmailChange(e) {
     setEmail(e.target.value);
   }
+
+  function handleSubmit(e) {
+    e.preventDefault();
+    props.onEditProfile({
+      name: name,
+      email: email,
+    })
+    console.log(props)   
+  }
+
   return (
     <section className="profile">
       <Header loggedIn={props.loggedIn} />
-      <h2 className="profile__heading">Привет, Ирина!</h2>
+      <h2 className="profile__heading">
+        {`Привет, ${currentUser.name}!`}
+      </h2>
       <article className="page__content">
-        <form className="profile__form">
+        <form className="profile__form" onSubmit={handleSubmit}>
           <div className="profile__input-wrapper">
             <span className="profile__input-name">Имя</span>
             <input
               className="profile__field-name"
               name="name"
-              // value="Ирина"
+              value={name}
               onChange={handleNameChange}
               type="text"
+              pattern="^[А-Яа-яЁёA-Za-z]+-? ?[А-Яа-яЁёA-Za-z]+$"
               autoComplete="off"
               minLength="2"
               maxLength="40"
@@ -42,13 +64,14 @@ export default function Profile(props) {
               name="email"
               type="email"
               required
-              value="myr-irina2@yandex.ru"
+              value={email}                    
               onChange={handleEmailChange}
               autoComplete="off"
             ></input>
+           
           </div>
 
-          <button className="profile__form-btn" type="submit">
+          <button className="profile__form-btn" type="submit" onClick={props.onEditProfile}>            
             Редактировать
           </button>
           <Link to='/'>

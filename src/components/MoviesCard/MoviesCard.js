@@ -1,7 +1,7 @@
 import React from "react";
 import { useLocation } from "react-router";
 import "./MoviesCard.css";
-import { MOVIES_API } from "./../../utils/constants";
+import { MOVIES_IMAGE_BASE_URL } from "./../../utils/constants";
 
 export default function MoviesCard(props) {
   console.log(props);
@@ -9,6 +9,7 @@ export default function MoviesCard(props) {
   const location = useLocation();
   const moviePath = location.pathname === "/movies";
   const savedMoviePath = location.pathname === "/saved-movies";
+  
 
   function handleMovieSave() {
     setIsMovieSaved(!isMovieSaved);
@@ -18,15 +19,27 @@ export default function MoviesCard(props) {
     evt.target.closest(".moviecard").remove();
   }
 
+  function getTimeFromMins(mins) {
+    let hours = Math.trunc(mins / 60);
+    let minutes = mins % 60;
+    if (mins >= 60) {
+      return hours + "ч " + minutes + "м";
+    } else {
+      return minutes + "м";
+    }
+  }
+
   return (
     <section className="moviecard moviecard__content">
       <div className="moviecard__block">
         <h3 className="moviecard__title">{props.card.nameRU}</h3>
-        <p className="moviecard__duration">{props.card.duration}</p>
+        <p className="moviecard__duration">
+          {getTimeFromMins(props.card.duration)}
+        </p>
       </div>
       <img
         className="moviecard__pic"
-        // src={`${MOVIES_API}${props.card.image.formats.thumbnail.url}`}
+        src={`${MOVIES_IMAGE_BASE_URL}${props.card.image.url}`}
         alt={`Кадр из фильма ${props.card.nameRU}`}
       />
       {moviePath &&

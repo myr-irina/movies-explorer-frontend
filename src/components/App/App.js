@@ -20,6 +20,7 @@ import ProtectedRoute from "../ProtectedRoute/ProtectedRoute";
 import moviesApi from "./../../utils/MoviesApi";
 import mainApi from "../../utils/MainApi";
 import Preloader from "./../Preloader/Preloader";
+import { MOVIES_API } from "./../../utils/constants";
 
 function App() {
   const [currentUser, setCurrentUser] = React.useState({
@@ -30,8 +31,14 @@ function App() {
   const [isLoading, setIsLoading] = React.useState(true);
   const [movies, setMovies] = React.useState([]);
   const [savedMovies, setSavedMovies] = React.useState([]);
+  const [foundMovies, setFoundMovies] = React.useState([]);
+  const [message, setMessage] = React.useState(null);
 
   const history = useHistory();
+
+  const resetMessage = () => {
+    setMessage(null);
+  };
 
   React.useEffect(() => {
     if (loggedIn) {
@@ -43,9 +50,9 @@ function App() {
         mainApi
           .getUserInfo()
           .then((res) => {
-            localStorage.setItem("currentUser", JSON.stringify(res));
-            console.log(localStorage);
-            setCurrentUser(res);
+            localStorage.setItem("currentUser", JSON.stringify(res || {}));
+            console.log(currentUser);
+            setCurrentUser(res || {});
           })
           .catch((err) =>
             console.log("Невозможно получить данные с сервера", err)
@@ -58,8 +65,8 @@ function App() {
         moviesApi
           .getMovies()
           .then((res) => {
-            localStorage.setItem("movies", JSON.stringify(res));
-            setMovies(res);
+            localStorage.setItem("movies", JSON.stringify(res || []));
+            setMovies(res || []);
             console.log(res);
           })
           .catch((err) =>
@@ -86,6 +93,10 @@ function App() {
     }
   }, [loggedIn]);
 
+  React.useEffect(() => {
+    resetMessage();
+  }, []);
+
   const handleTokenCheck = React.useCallback(() => {
     mainApi
       .getUserInfo()
@@ -109,7 +120,6 @@ function App() {
       .login(data)
       .then((res) => {
         handleTokenCheck();
-        // setLoggedIn(true);
         history.push("/movies");
       })
       .catch((err) => {
@@ -128,8 +138,23 @@ function App() {
         handleLoginSubmit(data);
       })
       .catch((err) => {
-        if (err.status === 400) {
+        if (err.status === 40) {
           console.log("400 - некорректно заполнено одно из полей");
+        }
+      });
+  }
+
+  function handleEditProfile(email, name) {
+    mainApi
+      .setUserInfo(email, name)
+      .then((res) => {
+        console.log(res);
+        localStorage.setItem("currentUser", JSON.stringify(res));
+        setCurrentUser(res);
+      })
+      .catch((err) => {
+        if (err.status === 400) {
+          console.log("409 - ошибка при сохранении данных", err);
         }
       });
   }
@@ -147,6 +172,22 @@ function App() {
       });
   }
 
+  // функция поиска фильма
+  function handleMovieSearch(query) {
+    const searchTerm = query.toLowerCase();
+     const movieSearchResult = movies.filter((item) => {      
+      return item.nameRU.toLowerCase().includes(searchTerm)
+     }
+    );
+    if (movieSearchResult.length === 0) {
+      setMessage("Ничего не найдено");
+      setFoundMovies([]);
+    } else {
+      setFoundMovies(movieSearchResult);      
+      resetMessage();
+    }
+  }
+
   return (
     <div className="page">
       <CurrentUserContext.Provider value={currentUser}>
@@ -160,14 +201,17 @@ function App() {
               <ProtectedRoute
                 path="/movies"
                 loggedIn={loggedIn}
+                message={message}
                 component={Movies}
-                movies={movies}
+                movies={foundMovies}
                 isLoading={isLoading}
+                searchMovie={handleMovieSearch}
               />
 
               <ProtectedRoute
                 path="/saved-movies"
                 loggedIn={loggedIn}
+                message={message}
                 component={SavedMovies}
                 savedMovies={savedMovies}
                 isLoading={isLoading}
@@ -179,6 +223,7 @@ function App() {
                 component={Profile}
                 isLoading={isLoading}
                 onSignOut={handleSignOut}
+                onEditProfile={handleEditProfile}
               />
 
               <Route path="/signup">

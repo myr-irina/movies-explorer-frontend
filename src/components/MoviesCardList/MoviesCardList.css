@@ -1,3 +1,11 @@
+.movies-message {
+  display: flex;
+  flex-direction: row;
+  font-size: 18px;
+  align-self: center;
+  font-weight: 500;
+}
+
 .movies-cardlist {
   display: flex;
   flex-direction: column;
@@ -42,7 +50,7 @@
 @media screen and (max-width: 940px) {
   .cards__list {
     grid-gap: 32px 25px;
-    grid-template-columns: repeat(2, 1fr);    
+    grid-template-columns: repeat(2, 1fr);
   }
 }
 

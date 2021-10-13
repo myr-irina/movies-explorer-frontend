@@ -35,6 +35,7 @@
 .search__input {
   width: 100%;
   border: none;
+  font-size: 18px;
 }
 
 .search__input::placeholder {

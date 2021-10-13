@@ -46,14 +46,14 @@ class MainApi {
     }).then(this._checkResponse);
   }
 
-  setUserInfo(data) {
-    return fetch(`${this._url}/users/me`, {
+  setUserInfo({ email, name }) {
+      return fetch(`${this._url}/users/me`, {
       method: "PATCH",
       headers: this._headers,
       credentials: "include",
       body: JSON.stringify({
-        email: data.email,
-        name: data.name,
+        email,
+        name,
       }),
     }).then(this._checkResponse);
   }
@@ -76,7 +76,7 @@ class MainApi {
         duration: data.duration,
         year: data.year,
         description: data.description,
-        image: data.image.formats.small,
+        image: data.image.formats.url,
         trailer: data.trailerLink,
         thumbnail: data.thumbnail,
         movieId: data.movieId,
