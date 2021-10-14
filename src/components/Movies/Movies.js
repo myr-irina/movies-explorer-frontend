@@ -5,17 +5,17 @@ import MoviesCardList from "../MoviesCardList/MoviesCardList";
 import Footer from "./../Footer/Footer";
 import Header from "./../Header/Header";
 
-export default function Movies({loggedIn, movies, isLoading, searchMovie, message}) {
+export default function Movies({loggedIn, movies, isLoading, searchMovie, message, onMovieSave, onMovieUnsave, savedMovies }) {
  
-  const [filteredMovies, setFilteredMovies] = React.useState(false);
+  const [isMoviesFiltered, setIsMoviesFiltered] = React.useState(false);
   const shortMovie = 40;
 
-  const moviesData = !filteredMovies
+  const moviesData = !isMoviesFiltered
     ? movies
     : movies.filter((movie) => movie.duration <= shortMovie);
 
   function handleFilterMovies(value) { 
-    setFilteredMovies(value);
+    setIsMoviesFiltered(value);
   }
 
   return (
@@ -23,12 +23,12 @@ export default function Movies({loggedIn, movies, isLoading, searchMovie, messag
       <main className="main">
         <Header loggedIn={loggedIn} />
         <SearchForm
-          searchMovie={searchMovie}
+          searchMovie={searchMovie}        
           isLoading={isLoading}
-          filteredMovies={filteredMovies}
+          isMoviesFiltered={isMoviesFiltered}
           onFilterMovies={handleFilterMovies}
         />
-        <MoviesCardList isLoading={isLoading} movies={moviesData} message={message} />
+        <MoviesCardList isLoading={isLoading} movies={moviesData} savedMovies={savedMovies} message={message} onMovieSave={onMovieSave} onMovieUnsave={onMovieUnsave}/>
         <Footer />
       </main>
     </>

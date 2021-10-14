@@ -1,4 +1,4 @@
-import { MAIN_API } from "./constants";
+import { MAIN_API, MOVIES_IMAGE_BASE_URL } from "./constants";
 
 class MainApi {
   constructor(options) {
@@ -6,9 +6,15 @@ class MainApi {
     this._headers = options.headers;
   }
 
-  _checkResponse(res) {
+  _checkResponse(res) {    
     if (res.ok) {
-      return res.json();
+      return res.text().then((text) => {
+        try {
+          return JSON.parse(text);
+        } catch (err) {
+          return text;
+        }
+      });
     }
     return Promise.reject(`${res.status}`);
   }
@@ -47,7 +53,7 @@ class MainApi {
   }
 
   setUserInfo({ email, name }) {
-      return fetch(`${this._url}/users/me`, {
+    return fetch(`${this._url}/users/me`, {
       method: "PATCH",
       headers: this._headers,
       credentials: "include",
@@ -71,15 +77,15 @@ class MainApi {
       headers: this._headers,
       credentials: "include",
       body: JSON.stringify({
-        country: data.country,
+        country: data.country || "",
         director: data.director,
         duration: data.duration,
         year: data.year,
         description: data.description,
-        image: data.image.formats.url,
+        image: `${MOVIES_IMAGE_BASE_URL}${data.image.url}`,
         trailer: data.trailerLink,
-        thumbnail: data.thumbnail,
-        movieId: data.movieId,
+        thumbnail: `${MOVIES_IMAGE_BASE_URL}${data.image.formats.thumbnail.url}`,
+        movieId: data.id,
         nameRU: data.nameRU,
         nameEN: data.nameEN,
       }),

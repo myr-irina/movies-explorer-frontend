@@ -12,8 +12,7 @@ function onChange(e) {
 }
 
   function handleSubmit(e) {
-    e.preventDefault();
-    console.log(e)
+    e.preventDefault();  
     searchMovie(searchTerm);
   }
 

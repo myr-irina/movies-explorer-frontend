@@ -20,7 +20,6 @@ import ProtectedRoute from "../ProtectedRoute/ProtectedRoute";
 import moviesApi from "./../../utils/MoviesApi";
 import mainApi from "../../utils/MainApi";
 import Preloader from "./../Preloader/Preloader";
-import { MOVIES_API } from "./../../utils/constants";
 
 function App() {
   const [currentUser, setCurrentUser] = React.useState({
@@ -175,17 +174,76 @@ function App() {
   // функция поиска фильма
   function handleMovieSearch(query) {
     const searchTerm = query.toLowerCase();
-     const movieSearchResult = movies.filter((item) => {      
-      return item.nameRU.toLowerCase().includes(searchTerm)
-     }
-    );
+
+    const movieSearchResult = movies.filter((item) => {
+      return item.nameRU.toLowerCase().includes(searchTerm);
+    });
     if (movieSearchResult.length === 0) {
       setMessage("Ничего не найдено");
       setFoundMovies([]);
     } else {
-      setFoundMovies(movieSearchResult);      
+      setFoundMovies(movieSearchResult);
       resetMessage();
     }
+  }
+
+  //функция сохранения фильмв
+  function handleMovieLike(movie) {
+    console.log(movie);
+    mainApi
+      .saveMovie(movie)
+      .then((res) => {
+        localStorage.setItem(
+          "savedMovies",
+          JSON.stringify([res, ...savedMovies])
+        );
+        setSavedMovies([res, ...savedMovies]);
+      })
+      .catch((err) => {
+        console.log(
+          `Невозможно сохранить карточку с фильмом. Код ошибки ${err.code}`
+        );
+      });
+  }
+
+  //функция поиска в сохраненных фильмах
+  function handleSavedMovieSearch(query) {
+    const searchTerm = query.toLowerCase();
+
+    const movieSearchResult = savedMovies.filter((item) => {
+      return item.nameRU.toLowerCase().includes(searchTerm);
+    });
+    if (movieSearchResult.length === 0) {
+      setMessage("Ничего не найдено");
+      setFoundMovies([]);
+    } else {
+      setFoundMovies(movieSearchResult);
+      resetMessage();
+    }
+  }
+
+  //функция удаления фильма
+  function handleDeleteMovie(movie) {
+    const savedMovie = savedMovies.find((elem) => elem.movieId === movie.id);
+    if (!savedMovie) {
+      console.error("Попытка удалить фильм, который не был сохранен.", movie);
+      return;
+    }
+    mainApi
+      .deleteMovie(savedMovie._id)
+      .then((res) => {
+        localStorage.setItem(
+          "savedMovies",
+          JSON.stringify(savedMovies.filter((i) => i._id !== savedMovie._id))
+        );
+        setSavedMovies(savedMovies.filter((i) => i._id !== savedMovie._id));
+      })
+      .catch((err) => {
+        console.log(err)
+        console.error(
+          `Невозможно удалить карточку с фильмом. Код ошибки ${err.code}`
+        );
+      });
   }
 
   return (
@@ -204,8 +262,11 @@ function App() {
                 message={message}
                 component={Movies}
                 movies={foundMovies}
+                savedMovies={savedMovies}
                 isLoading={isLoading}
                 searchMovie={handleMovieSearch}
+                onMovieSave={handleMovieLike}
+                onMovieUnsave={handleDeleteMovie}
               />
 
               <ProtectedRoute
@@ -214,6 +275,8 @@ function App() {
                 message={message}
                 component={SavedMovies}
                 savedMovies={savedMovies}
+                searchMovie={handleSavedMovieSearch}
+                onDeleteMovie={handleDeleteMovie}
                 isLoading={isLoading}
               />
 
