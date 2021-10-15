@@ -12,7 +12,7 @@ import "./Main.css";
 export default function Main( {loggedIn}) {
   return (
     <section className="main">
-      <Header loggedIn={loggedIn}/>
+      <Header loggedIn={loggedIn}/>      
       <Promo />
       <NavTab />
       <AboutProject />

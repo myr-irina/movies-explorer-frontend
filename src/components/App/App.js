@@ -276,7 +276,7 @@ function App() {
                 component={SavedMovies}
                 savedMovies={savedMovies}
                 searchMovie={handleSavedMovieSearch}
-                onDeleteMovie={handleDeleteMovie}
+                onMovieUnsave={handleDeleteMovie}
                 isLoading={isLoading}
               />
 

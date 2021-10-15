@@ -15,15 +15,16 @@ export default function MoviesCardList(props) {
   const [windowWidth, setWindowWidth] = React.useState(window.innerWidth);
   const [cardsArray, setCardsArray] = React.useState(0);
 
-  const renderCards = () => {
-    if (windowWidth > 768) {
-      setCardsArray(CARDS_FOR_MAX_WIN_SIZE);
-    } else if (windowWidth > 480 && windowWidth < 768) {
-      setCardsArray(CARDS_FOR_MEDIUM_WIN_SIZE);
-    } else {
-      setCardsArray(CARDS_FOR_MIN_WIN_SIZE);
+  
+  function renderCards() {
+      if (windowWidth > 768) {
+        setCardsArray(CARDS_FOR_MAX_WIN_SIZE);
+      } else if (windowWidth > 480 && windowWidth < 768) {
+        setCardsArray(CARDS_FOR_MEDIUM_WIN_SIZE);
+      } else {
+        setCardsArray(CARDS_FOR_MIN_WIN_SIZE);
+      }
     }
-  };
 
   const handleClick = () => {
     if (windowWidth > 1020) {

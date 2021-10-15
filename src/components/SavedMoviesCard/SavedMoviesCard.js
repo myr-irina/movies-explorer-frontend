@@ -2,7 +2,7 @@ import React from "react";
 import "./MoviesCard.css";
 import { MOVIES_IMAGE_BASE_URL } from "./../../utils/constants";
 
-export default function MoviesCard(props) {
+export default function SavedMoviesCard(props) {
   function getTimeFromMins(mins) {
     let hours = Math.trunc(mins / 60);
     let minutes = mins % 60;
@@ -18,10 +18,10 @@ export default function MoviesCard(props) {
   }
 
   return (
-    <section className="moviecard moviecard__content">
-      <div className="moviecard__block">
-        <h3 className="moviecard__title">{props.card.nameRU}</h3>
-        <p className="moviecard__duration">
+    <section className="saved-moviecard saved-moviecard__content">
+      <div className="saved-moviecard__block">
+        <h3 className="saved-moviecard__title">{props.card.nameRU}</h3>
+        <p className="saved-moviecard__duration">
           {getTimeFromMins(props.card.duration)}
         </p>
       </div>
@@ -29,32 +29,22 @@ export default function MoviesCard(props) {
         href={props.card.trailerLink}
         target="_blank"
         rel="noreferrer"
-        className="moviecard__link"
+        className="saved-moviecard__link"
       >
         <img
-          className="moviecard__pic"
+          className="saved-moviecard__pic"
           src={`${MOVIES_IMAGE_BASE_URL}${props.card.image.url}`}
           alt={`Кадр из фильма ${props.card.nameRU}`}
         />
       </a>
 
       <button
-        className={`moviecard__button ${
-          props.isMovieSaved ? "moviecard__button_type_saved" : ""
-        }`}
-        type="button"
-        onClick={handleButtonClick}
-      >
-        {props.isMovieSaved ? "✓" : "Сохранить"}
-      </button>
-
-      {/* {savedMoviePath && (
-        <button
-          className="moviecard__button moviecard__button_type_delete"
+          className="saved-moviecard__button saved-moviecard__button_type_delete"
           type="button"
-          onClick={handleMovieDelete}
+          onClick={handleButtonClick}
         ></button>
-      )} */}
+
+   
     </section>
   );
 }
