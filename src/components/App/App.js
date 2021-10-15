@@ -1,9 +1,9 @@
+/* eslint-disable react-hooks/exhaustive-deps */
 import React from "react";
 import {
   Route,
   Switch,
-  useHistory,
-  useLocation,
+  useHistory, 
   Redirect,
 } from "react-router-dom";
 import "./App.css";
@@ -32,6 +32,7 @@ function App() {
   const [savedMovies, setSavedMovies] = React.useState([]);
   const [foundMovies, setFoundMovies] = React.useState([]);
   const [message, setMessage] = React.useState(null);
+  const [isFormSending, setIsFormSending] = React.useState(false);
 
   const history = useHistory();
 
@@ -115,6 +116,7 @@ function App() {
   }, [handleTokenCheck]);
 
   function handleLoginSubmit(data) {
+    setIsFormSending(true);
     mainApi
       .login(data)
       .then((res) => {
@@ -127,10 +129,12 @@ function App() {
         } else if (err.status === 401) {
           console.log("401 - пользователь с email не найден");
         }
-      });
+      })
+      .finally(() => setIsFormSending(false));
   }
 
   function handleRegisterSubmit(data) {
+    setIsFormSending(true);
     mainApi
       .register(data)
       .then((res) => {
@@ -140,10 +144,12 @@ function App() {
         if (err.status === 40) {
           console.log("400 - некорректно заполнено одно из полей");
         }
-      });
+      })
+      .finally(() => setIsFormSending(false));
   }
 
   function handleEditProfile(email, name) {
+    setIsFormSending(true);
     mainApi
       .setUserInfo(email, name)
       .then((res) => {
@@ -155,7 +161,8 @@ function App() {
         if (err.status === 400) {
           console.log("409 - ошибка при сохранении данных", err);
         }
-      });
+      })
+      .finally(() => setIsFormSending(false));
   }
 
   function handleSignOut() {
@@ -163,6 +170,10 @@ function App() {
       .signOut()
       .then(() => {
         setLoggedIn(false);
+        setCurrentUser({
+          name: "",
+          email: "",
+        });
         localStorage.clear();
         history.push("/");
       })
@@ -239,7 +250,7 @@ function App() {
         setSavedMovies(savedMovies.filter((i) => i._id !== savedMovie._id));
       })
       .catch((err) => {
-        console.log(err)
+        console.log(err);
         console.error(
           `Невозможно удалить карточку с фильмом. Код ошибки ${err.code}`
         );
@@ -287,13 +298,17 @@ function App() {
                 isLoading={isLoading}
                 onSignOut={handleSignOut}
                 onEditProfile={handleEditProfile}
+                isSending={isFormSending}
               />
 
               <Route path="/signup">
                 {loggedIn ? (
                   <Redirect to="/movies" />
                 ) : (
-                  <Register onRegister={handleRegisterSubmit} />
+                  <Register
+                    onRegister={handleRegisterSubmit}
+                    isSending={isFormSending}
+                  />
                 )}
               </Route>
 
@@ -301,7 +316,10 @@ function App() {
                 {loggedIn ? (
                   <Redirect to="/movies" />
                 ) : (
-                  <Login onLogin={handleLoginSubmit} />
+                  <Login
+                    onLogin={handleLoginSubmit}
+                    isSending={isFormSending}
+                  />
                 )}
               </Route>
 

@@ -131,14 +131,14 @@
     display: block;
     cursor: pointer;
     position: absolute;
-    right: 9%;
+    right: 4%;
     top: 15px;
   }
 }
 
 @media screen and (max-width: 455px) {
   .menu-burger {
-    right: 15%;
+    right: 7%;
   }
 }
 
@@ -148,7 +148,7 @@
   }
 
   .menu-burger {
-    right: 16%;
+    right: 4.4%;
     top: 16px;
   }
 

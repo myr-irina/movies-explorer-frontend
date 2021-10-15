@@ -1,6 +1,7 @@
 import React from "react";
 import "./MoviesCardList.css";
 import MovieCard from "./../MoviesCard/MoviesCard";
+import Preloader from "../Preloader/Preloader";
 
 import {
   CARDS_FOR_MAX_WIN_SIZE,
@@ -15,18 +16,17 @@ export default function MoviesCardList(props) {
   const [windowWidth, setWindowWidth] = React.useState(window.innerWidth);
   const [cardsArray, setCardsArray] = React.useState(0);
 
-  
   function renderCards() {
-      if (windowWidth > 768) {
-        setCardsArray(CARDS_FOR_MAX_WIN_SIZE);
-      } else if (windowWidth > 480 && windowWidth < 768) {
-        setCardsArray(CARDS_FOR_MEDIUM_WIN_SIZE);
-      } else {
-        setCardsArray(CARDS_FOR_MIN_WIN_SIZE);
-      }
+    if (windowWidth > 768) {
+      setCardsArray(CARDS_FOR_MAX_WIN_SIZE);
+    } else if (windowWidth > 480 && windowWidth < 768) {
+      setCardsArray(CARDS_FOR_MEDIUM_WIN_SIZE);
+    } else {
+      setCardsArray(CARDS_FOR_MIN_WIN_SIZE);
     }
+  }
 
-  const handleClick = () => {
+  const handleAddCardClick = () => {
     if (windowWidth > 1020) {
       setCardsArray(cardsArray + ADD_CARDS_FOR_MAX_WIN_SIZE);
     } else {
@@ -38,42 +38,46 @@ export default function MoviesCardList(props) {
   React.useEffect(() => renderCards(), [windowWidth]);
 
   return (
-    <>
-      <section className="movies-cardlist">
-        {props.message && <p className="movies-message">{props.message}</p>}
-        <ul className="cards__list">
-          {movies.slice(0, cardsArray).map((movie) => {
-            if(props.savedMovies.find((elem) => (elem.movieId === movie.id))) {
-              return (
-                <MovieCard
-                  card={movie}
-                  key={movie.id}
-                  onChangeState={props.onMovieUnsave}
-                  isMovieSaved={true}
-                />
-              );
-            } else {
-              return (
-                <MovieCard
-                  card={movie}
-                  key={movie.id}
-                  onChangeState={props.onMovieSave}
-                  isMovieSaved={false}
-                />
-              );
-            }              
-          })}
-        </ul>
-        {props.movies.length > cardsArray && (
-          <button
-            className="movies-cardlist__btn"
-            type="button"
-            onClick={handleClick}
-          >
-            Еще
-          </button>
-        )}
-      </section>
-    </>
+    <section className="movies-cardlist">
+      {props.isLoading ? (
+        <Preloader />
+      ) : (
+        <>
+          {props.message && <p className="movies-message">{props.message}</p>}
+          <ul className="cards__list">
+            {movies.slice(0, cardsArray).map((movie) => {
+              if (props.savedMovies.find((elem) => elem.movieId === movie.id)) {
+                return (
+                  <MovieCard
+                    card={movie}
+                    key={movie.id}
+                    onChangeState={props.onMovieUnsave}
+                    isMovieSaved={true}
+                  />
+                );
+              } else {
+                return (
+                  <MovieCard
+                    card={movie}
+                    key={movie.id}
+                    onChangeState={props.onMovieSave}
+                    isMovieSaved={false}
+                  />
+                );
+              }
+            })}
+          </ul>
+          {props.movies.length > cardsArray && (
+            <button
+              className="movies-cardlist__btn"
+              type="button"
+              onClick={handleAddCardClick}
+            >
+              Еще
+            </button>
+          )}
+        </>
+      )}
+    </section>
   );
 }

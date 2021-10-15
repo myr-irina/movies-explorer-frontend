@@ -1,24 +1,26 @@
+/* eslint-disable react-hooks/exhaustive-deps */
 import React from "react";
 import "./Login.css";
 import { Link } from "react-router-dom";
 import Logo from "../Logo/Logo";
+import { useFormWithValidation } from "../../utils/validation/Validation";
 
 export default function Login(props) {
-  const [email, setEmail] = React.useState("");
-  const [password, setPassword] = React.useState("");
+  const { values, handleChange, resetForm, errors, isValid } =
+    useFormWithValidation();
 
-  function handleEmailChange(e) {
-    setEmail(e.target.value);
-  }
+  React.useEffect(() => {
+    resetForm({});
+  }, []);
 
-  function handlePasswordChange(e) {
-    setPassword(e.target.value);
-  }
-
-  function handleSubmit(e) {
+  const handleSubmit = (e) => {
     e.preventDefault();
-    props.onLogin({email, password});
-  }
+    if (!values.email || !values.password) {
+      return;
+    }
+    const { password, email } = values;
+    props.onLogin({ password, email });
+  };
 
   return (
     <section className="login">
@@ -34,10 +36,15 @@ export default function Login(props) {
           name="email"
           type="email"
           required
-          value={email || ""}
-          onChange={handleEmailChange}
+          pattern="^([\w-]+(?:\.[\w-]+)*)@((?:[\w-]+\.)*\w[\w-]{0,66})\.([a-z]{2,6}(?:\.[a-z]{2})?)$"
+          value={values.email || ""}
+          onChange={handleChange}
           autoComplete="off"
+          disabled={props.isSending}
         ></input>
+        <span className="login__input-error" id="email-error">
+          {errors.email}
+        </span>
 
         <span className="login__input">Пароль</span>
         <input
@@ -45,13 +52,27 @@ export default function Login(props) {
           name="password"
           type="password"
           required
-          value={password || ""}
-          onChange={handlePasswordChange}
+          value={values.password || ""}
+          onChange={handleChange}
           autoComplete="off"
-        ></input>   
+          disabled={props.isSending}
+        ></input>
 
-        <button className="login__form-btn" type="submit">
-          Войти
+        <span className="login__input-error" id="password-error">
+          {errors.password}
+        </span>
+
+        {/* <span className="login__input-error" id="messages">
+          {messages.authForm}
+        </span> */}
+
+        <button
+          className={`login__form-btn
+          ${!isValid && "login__button_disabled"}
+          ${props.isSending && "login__button_disabled"}`}
+          type="submit"
+        >
+          {props.isSending ? "Вход..." : "Войти"}
         </button>
         <div className="login__signin">
           <p className="login__link-title">Ещё не зарегистрированы?</p>

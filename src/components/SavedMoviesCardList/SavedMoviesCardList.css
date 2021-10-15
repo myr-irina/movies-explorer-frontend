@@ -11,7 +11,7 @@
   flex-direction: column;
   justify-content: center;
   width: calc(100% - 140px);
-  margin: 0 auto;
+  
 }
 
 .saved-cards__list {
@@ -22,6 +22,7 @@
   list-style-type: none;
   margin: 0;
   padding: 0;
+  margin: 0 0 60px 0;
 }
 
 @media screen and (max-width: 940px) {
@@ -35,6 +36,7 @@
   .saved-cards__list {
     grid-gap: 35px 24px;
     grid-template-columns: repeat(2, 1fr);
+    margin: 0 0 80px;
   }
 
   .saved-movies-cardlist {
@@ -46,6 +48,7 @@
   .saved-cards__list {
     grid-template-columns: repeat(1, 1fr);
     grid-gap: 16px 0;
+    margin: 0 0 85px;
   }
 }
 

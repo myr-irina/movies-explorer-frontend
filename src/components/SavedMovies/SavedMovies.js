@@ -36,6 +36,7 @@ export default function SavedMovies({
       {/* <MoviesCardList /> */}
       {/* <SavedMoviesCardList
         isLoading={isLoading}
+        movies={moviesData}
         savedMovies={savedMovies}
         message={message}
         onMovieUnsave={onMovieUnsave}

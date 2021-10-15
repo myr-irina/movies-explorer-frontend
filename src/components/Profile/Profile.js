@@ -3,42 +3,29 @@ import { Link } from "react-router-dom";
 import "./Profile.css";
 import Header from "../Header/Header";
 import { CurrentUserContext } from "./../../contexts/CurrentUserContext";
+import { useFormWithValidation } from "../../utils/validation/Validation";
 
 export default function Profile(props) {
   const currentUser = React.useContext(CurrentUserContext);
 
-  const [name, setName] = React.useState(currentUser.name);
-  const [email, setEmail] = React.useState(currentUser.email);
+  const { values, handleChange, resetForm, errors, isValid } =
+    useFormWithValidation();
 
   React.useEffect(() => {
-    setName(currentUser.name);
-    setEmail(currentUser.email);
-  },[currentUser])
-
-
-  function handleNameChange(e) {
-    setName(e.target.value);
-  }
-
-  function handleEmailChange(e) {
-    setEmail(e.target.value);
-  }
+    if (currentUser) {
+      resetForm(currentUser, {}, true);
+    }
+  }, [currentUser, resetForm]);
 
   function handleSubmit(e) {
     e.preventDefault();
-    props.onEditProfile({
-      name: name,
-      email: email,
-    })
-    console.log(props)   
+    props.onEditProfile({ email: values.email, name: values.name });
   }
 
   return (
     <section className="profile">
       <Header loggedIn={props.loggedIn} />
-      <h2 className="profile__heading">
-        {`Привет, ${currentUser.name}!`}
-      </h2>
+      <h2 className="profile__heading">{`Привет, ${currentUser.name}!`}</h2>
       <article className="page__content">
         <form className="profile__form" onSubmit={handleSubmit}>
           <div className="profile__input-wrapper">
@@ -46,8 +33,8 @@ export default function Profile(props) {
             <input
               className="profile__field-name"
               name="name"
-              value={name}
-              onChange={handleNameChange}
+              value={values.name || currentUser.name}
+              onChange={handleChange}
               type="text"
               pattern="^[А-Яа-яЁёA-Za-z]+-? ?[А-Яа-яЁёA-Za-z]+$"
               autoComplete="off"
@@ -56,7 +43,9 @@ export default function Profile(props) {
               required
             ></input>
           </div>
-
+          <span className="login__input-error" id="email-error">
+            {errors.name}
+          </span>
           <div className="profile__input-wrapper">
             <span className="profile__input-email">E-mail</span>
             <input
@@ -64,24 +53,38 @@ export default function Profile(props) {
               name="email"
               type="email"
               required
-              value={email}                    
-              onChange={handleEmailChange}
+              pattern="^([\w-]+(?:\.[\w-]+)*)@((?:[\w-]+\.)*\w[\w-]{0,66})\.([a-z]{2,6}(?:\.[a-z]{2})?)$"
+              value={values.email || currentUser.email}
+              onChange={handleChange}
               autoComplete="off"
             ></input>
-           
           </div>
+          <span className="login__input-error" id="email-error">
+            {errors.email}
+          </span>
+          {/* {messages && <span className="login__input-error" id="messages">{messages.profileForm}</span>} */}
 
-          <button className="profile__form-btn" type="submit" onClick={props.onEditProfile}>            
+          <button
+            type="submit"
+            className={`profile__form-btn
+          ${!isValid && "profile__form-btn_disabled"}
+          ${
+            values.email === currentUser.email &&
+            values.name === currentUser.name &&
+            "profile__form-btn_disabled"
+          }
+          ${props.isSending && "profile__form-btn_disabled"}`}
+          >
             Редактировать
           </button>
-          <Link to='/'>
-          <button
-            className="profile__form-btn profile__form-btn_type_exit"
-            type="button"
-            onClick={props.onSignOut}
-          >
-            Выйти из аккаунта
-          </button>
+          <Link to="/">
+            <button
+              className="profile__form-btn profile__form-btn_type_exit"
+              type="button"
+              onClick={props.onSignOut}
+            >
+              Выйти из аккаунта
+            </button>
           </Link>
         </form>
       </article>

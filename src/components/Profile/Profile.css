@@ -105,6 +105,11 @@
   font-weight: 500;
 }
 
+.profile__form-btn_disabled{
+  color: #c2c2c2; 
+  pointer-events: none;
+}
+
 @media screen and (max-width: 768px) {
   .profile {
     padding: 0 0 70px;

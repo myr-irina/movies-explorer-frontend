@@ -20,8 +20,8 @@
   grid-gap: 32px 28px;
   justify-content: center;
   list-style-type: none;
-  margin: 0;
-  padding: 0;
+  margin: 0 0 60px 0;
+  padding: 0;  
 }
 
 .movies-cardlist__btn {
@@ -33,7 +33,7 @@
   width: 320px;
   height: 36px;
   background: none;
-  margin: 60px 0 80px;
+  margin: 0 0 80px;
   padding: 0;
   box-sizing: border-box;
   display: block;
@@ -58,10 +58,11 @@
   .cards__list {
     grid-gap: 35px 24px;
     grid-template-columns: repeat(2, 1fr);
+    margin: 0 0 80px;
   }
 
   .movies-cardlist__btn {
-    margin: 80px 0 90px;
+    margin: 0 0 90px;
   }
 
   .movies-cardlist {
@@ -80,12 +81,13 @@
   .cards__list {
     grid-template-columns: repeat(1, 300px);
     grid-gap: 16px 0;
+    margin: 0 0 85px;
   }
 
   .movies-cardlist__btn {
     width: 240px;
     height: 36px;
     border-radius: 6px;
-    margin: 85px 0 95px;
+    margin: 0 0 95px;
   }
 }

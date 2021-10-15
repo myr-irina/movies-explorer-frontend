@@ -127,6 +127,24 @@
   color: #2be080;
 }
 
+.login__input-error {
+  font-weight: 400;
+  font-size: 10px;
+  line-height: 12px;
+  color: #ee3465;
+  display: block;
+  margin-top: 5px;
+  min-height: 20px;
+  pointer-events: none;
+}
+
+.login__button_disabled {
+  background-color: #f8f8f8;
+  color: #c2c2c2;
+  height: 45px;
+  pointer-events: none;
+}
+
 @media screen and (max-width: 420px) {
   .login__block {
     justify-content: center;
