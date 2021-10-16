@@ -1,6 +1,5 @@
 import React from "react";
-import "./MoviesCard.css";
-import { MOVIES_IMAGE_BASE_URL } from "./../../utils/constants";
+import "./SavedMoviesCard.css";
 
 export default function SavedMoviesCard(props) {
   function getTimeFromMins(mins) {
@@ -14,7 +13,7 @@ export default function SavedMoviesCard(props) {
   }
 
   function handleButtonClick() {
-    return props.onChangeState(props.card);
+    return props.onChangeState({ id: props.card.movieId });
   }
 
   return (
@@ -33,18 +32,16 @@ export default function SavedMoviesCard(props) {
       >
         <img
           className="saved-moviecard__pic"
-          src={`${MOVIES_IMAGE_BASE_URL}${props.card.image.url}`}
+          src={props.card.thumbnail}
           alt={`Кадр из фильма ${props.card.nameRU}`}
         />
       </a>
 
       <button
-          className="saved-moviecard__button saved-moviecard__button_type_delete"
-          type="button"
-          onClick={handleButtonClick}
-        ></button>
-
-   
+        className="saved-moviecard__button saved-moviecard__button_type_delete"
+        type="button"
+        onClick={handleButtonClick}
+      ></button>
     </section>
   );
 }

@@ -78,8 +78,6 @@ export default function Register(props) {
           {errors.password}
         </span>
 
-        {/* <span className="register__input-error" id="messages">{messages.regForm}</span> */}
-
         <button
           type="submit"
           className={`register__form-btn

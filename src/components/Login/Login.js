@@ -62,10 +62,6 @@ export default function Login(props) {
           {errors.password}
         </span>
 
-        {/* <span className="login__input-error" id="messages">
-          {messages.authForm}
-        </span> */}
-
         <button
           className={`login__form-btn
           ${!isValid && "login__button_disabled"}

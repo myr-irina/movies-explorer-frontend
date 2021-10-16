@@ -16,7 +16,7 @@ export default function MoviesCardList(props) {
   const [windowWidth, setWindowWidth] = React.useState(window.innerWidth);
   const [cardsArray, setCardsArray] = React.useState(0);
 
-  function renderCards() {
+  const renderCards = React.useCallback(() => {
     if (windowWidth > 768) {
       setCardsArray(CARDS_FOR_MAX_WIN_SIZE);
     } else if (windowWidth > 480 && windowWidth < 768) {
@@ -24,7 +24,7 @@ export default function MoviesCardList(props) {
     } else {
       setCardsArray(CARDS_FOR_MIN_WIN_SIZE);
     }
-  }
+  }, [windowWidth]);
 
   const handleAddCardClick = () => {
     if (windowWidth > 1020) {
@@ -34,9 +34,9 @@ export default function MoviesCardList(props) {
     }
   };
 
-  // eslint-disable-next-line react-hooks/exhaustive-deps
-  React.useEffect(() => renderCards(), [windowWidth]);
+  React.useEffect(() => renderCards(), [renderCards]);
 
+  console.log(movies)
   return (
     <section className="movies-cardlist">
       {props.isLoading ? (
@@ -45,7 +45,7 @@ export default function MoviesCardList(props) {
         <>
           {props.message && <p className="movies-message">{props.message}</p>}
           <ul className="cards__list">
-            {movies.slice(0, cardsArray).map((movie) => {
+            {movies && movies.slice(0, cardsArray).map((movie) => {
               if (props.savedMovies.find((elem) => elem.movieId === movie.id)) {
                 return (
                   <MovieCard

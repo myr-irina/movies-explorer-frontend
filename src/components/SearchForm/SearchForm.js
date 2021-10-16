@@ -4,7 +4,7 @@ import SearchIcon from "./../../images/searchIcon.svg";
 import FilterCheckbox from "./../FilterCheckbox/FilterCheckbox";
 import SearchButton from "./../../images/search-btn.svg";
 
-export default function SearchForm({searchMovie, isLoading, filteredMovies, onFilterMovies}) {
+export default function SearchForm({searchMovie, filteredMovies, onFilterMovies}) {
 const [searchTerm, setSearchTerm] = React.useState('');
 
 function onChange(e) {

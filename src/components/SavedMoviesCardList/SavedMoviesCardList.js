@@ -1,6 +1,6 @@
 import React from "react";
 import "./SavedMoviesCardList.css";
-import SavedMovieCard from './../SavedMoviesCard/SavedMoviesCard';
+import SavedMoviesCard from './../SavedMoviesCard/SavedMoviesCard';
 
 import {
   CARDS_FOR_MAX_WIN_SIZE,
@@ -37,11 +37,10 @@ export default function SavedMoviesCardList(props) {
         <ul className="saved-cards__list">
           {savedMovies.slice(0, cardsArray).map((savedMovie) => {
             return (
-              <SavedMovieCard
+              <SavedMoviesCard
                 card={savedMovie}
-                key={savedMovie.id}
-                onChangeState={props.onMovieUnsave}
-                isMovieSaved={true}
+                key={savedMovie._id}
+                onChangeState={props.onMovieUnsave}              
               />
             );
           })}

@@ -43,7 +43,7 @@ export default function Profile(props) {
               required
             ></input>
           </div>
-          <span className="login__input-error" id="email-error">
+          <span className="login__input-error" id="name-error">
             {errors.name}
           </span>
           <div className="profile__input-wrapper">
@@ -62,7 +62,6 @@ export default function Profile(props) {
           <span className="login__input-error" id="email-error">
             {errors.email}
           </span>
-          {/* {messages && <span className="login__input-error" id="messages">{messages.profileForm}</span>} */}
 
           <button
             type="submit"

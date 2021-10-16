@@ -31,8 +31,7 @@ export default function Movies({
       <main className="main">
         <HeaderMovies loggedIn={loggedIn} />
         <SearchForm
-          searchMovie={searchMovie}
-          isLoading={isLoading}
+          searchMovie={searchMovie}         
           isMoviesFiltered={isMoviesFiltered}
           onFilterMovies={handleFilterMovies}
         />

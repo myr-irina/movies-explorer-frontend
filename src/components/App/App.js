@@ -27,7 +27,9 @@ function App() {
     email: "",
   });
   const [loggedIn, setLoggedIn] = React.useState(false);
-  const [isLoading, setIsLoading] = React.useState(true);
+  const [isMoviesLoading, setIsMoviesLoading] = React.useState(false);
+  const [isUserDataLoading, setIsUserDataLoading] = React.useState(true);
+  const [isSavedMoviesLoading, setIsSavedMoviesLoading] = React.useState(true);
   const [movies, setMovies] = React.useState([]);
   const [savedMovies, setSavedMovies] = React.useState([]);
   const [foundMovies, setFoundMovies] = React.useState([]);
@@ -67,13 +69,14 @@ function App() {
           .then((res) => {
             localStorage.setItem("movies", JSON.stringify(res || []));
             setMovies(res || []);
-            console.log(res);
+            setIsMoviesLoading(false)
           })
           .catch((err) =>
             console.log("Невозможно получить данные с сервера", err)
           );
       } else {
         setMovies(JSON.parse(moviesLocalStorage));
+        setIsMoviesLoading(false);
       }
 
       if (!savedMovieLocalStorage) {
@@ -83,12 +86,14 @@ function App() {
             console.log(res);
             localStorage.setItem("savedMovies", JSON.stringify(res || []));
             setSavedMovies(res || []);
+            setIsSavedMoviesLoading(false);
           })
           .catch((err) =>
             console.log("Невозможно получить данные с сервера", err)
           );
       } else {
         setSavedMovies(JSON.parse(savedMovieLocalStorage));
+        setIsSavedMoviesLoading(false);
       }
     }
   }, [loggedIn]);
@@ -102,11 +107,11 @@ function App() {
       .getUserInfo()
       .then(() => {
         setLoggedIn(true);
-        setIsLoading(false);
+        setIsUserDataLoading(false);
       })
       .catch((err) => {
         setLoggedIn(false);
-        setIsLoading(false);
+        setIsUserDataLoading(false);
         console.log(`Error: ${err}`);
       });
   }, []);
@@ -261,7 +266,7 @@ function App() {
     <div className="page">
       <CurrentUserContext.Provider value={currentUser}>
         <div className="page__container">
-          {isLoading ? (
+          {isMoviesLoading ? (
             <Preloader />
           ) : (
             <Switch>
@@ -274,7 +279,7 @@ function App() {
                 component={Movies}
                 movies={foundMovies}
                 savedMovies={savedMovies}
-                isLoading={isLoading}
+                isLoading={isMoviesLoading}
                 searchMovie={handleMovieSearch}
                 onMovieSave={handleMovieLike}
                 onMovieUnsave={handleDeleteMovie}
@@ -288,14 +293,14 @@ function App() {
                 savedMovies={savedMovies}
                 searchMovie={handleSavedMovieSearch}
                 onMovieUnsave={handleDeleteMovie}
-                isLoading={isLoading}
+                isLoading={isSavedMoviesLoading}
               />
 
               <ProtectedRoute
                 path="/profile"
                 loggedIn={loggedIn}
                 component={Profile}
-                isLoading={isLoading}
+                isLoading={isUserDataLoading}
                 onSignOut={handleSignOut}
                 onEditProfile={handleEditProfile}
                 isSending={isFormSending}
