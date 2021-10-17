@@ -47,14 +47,6 @@ export default function MoviesCard(props) {
       >
         {props.isMovieSaved ? "✓" : "Сохранить"}
       </button>
-
-      {/* {savedMoviePath && (
-        <button
-          className="moviecard__button moviecard__button_type_delete"
-          type="button"
-          onClick={handleMovieDelete}
-        ></button>
-      )} */}
     </section>
   );
 }

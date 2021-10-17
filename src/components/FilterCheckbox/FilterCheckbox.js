@@ -8,10 +8,6 @@ export default function FilterCheckbox({ onCheckboxToggle }) {
     setChecked(event.target.checked);
   }
 
-  // function toggleCheckbox() {
-  //   onFilterMovies(!filteredMovies);
-  // }
-
   return (
     <div className="filter-checkbox">
       <label className="filter-checkbox__label">

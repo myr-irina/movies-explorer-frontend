@@ -26,32 +26,13 @@ export default function Movies({
     }
   }, [isChecked]);
 
-  // const [isMoviesFiltered, setIsMoviesFiltered] = React.useState(false);
-
-  // const shortMovie = 40;
-
-  // const filteredMovies = !isMoviesFiltered
-  //   ? movies
-  //   : movies.filter((movie) => movie.duration <= shortMovie);
-
-  // function handleFilterMovies(value) {
-  //   setIsMoviesFiltered(value);
-  // }
- 
-
   return (
     <>
       <main className="main">
         <HeaderMovies loggedIn={loggedIn} />
-        <SearchForm
-          searchMovie={searchMovie}
-          setIsChecked={setIsChecked}
-          // isMoviesFiltered={isMoviesFiltered}
-          // onFilterMovies={handleFilterMovies}
-        />
+        <SearchForm searchMovie={searchMovie} setIsChecked={setIsChecked} />
         <MoviesCardList
           isLoading={isLoading}
-          // movies={filteredMovies}
           movies={isChecked ? shortMovies : movies}
           savedMovies={savedMovies}
           message={message}

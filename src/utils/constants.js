@@ -1,4 +1,3 @@
-// export const MAIN_API = 'http://localhost:3000';
 export const MAIN_API = 'https://api.films.nomoredomains.monster';
 export const MOVIES_API = 'https://api.nomoreparties.co/beatfilm-movies';
 export const MOVIES_IMAGE_BASE_URL = 'https://api.nomoreparties.co';
