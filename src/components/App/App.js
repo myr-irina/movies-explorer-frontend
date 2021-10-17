@@ -38,6 +38,7 @@ function App() {
   const [movies, setMovies] = React.useState([]);
   const [savedMovies, setSavedMovies] = React.useState([]);
   const [foundMovies, setFoundMovies] = React.useState([]);
+  const [foundSavedMovies, setFoundSavedMovies ] = React.useState([]);
   const [message, setMessage] = React.useState(null);
   const [isFormSending, setIsFormSending] = React.useState(false);
   const shortMovie = 40;
@@ -251,14 +252,19 @@ function App() {
   //функция поиска в сохраненных фильмах
   function handleSavedMovieSearch(query) {
     const searchTerm = query.toLowerCase();
+    if(searchTerm === '') {
+      setFoundSavedMovies([]);
+      resetMessage();
+      return;
+    }
     const savedMovieSearchResult = savedMovies.filter((item) => {
       return item.nameRU.toLowerCase().includes(searchTerm);
     });
     if (savedMovieSearchResult.length === 0) {
       setMessage(MOVIES_NOT_FOUND_MESSAGE);
-      setFoundMovies([]);
+      setFoundSavedMovies([]);
     } else {
-      setFoundMovies(savedMovieSearchResult);
+      setFoundSavedMovies(savedMovieSearchResult);
       resetMessage();
     }
   }
@@ -325,6 +331,7 @@ function App() {
                 message={message}
                 component={SavedMovies}
                 savedMovies={savedMovies}
+                foundSavedMovies={foundSavedMovies}
                 searchSavedMovie={handleSavedMovieSearch}
                 onMovieUnsave={handleDeleteMovie}
                 isLoading={isSavedMoviesLoading}

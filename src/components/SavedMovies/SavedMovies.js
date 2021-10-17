@@ -13,14 +13,16 @@ export default function SavedMovies({
   searchSavedMovie,
   onMovieUnsave,
   isLoading,
-  sortShortMovies
+  sortShortMovies,
+  foundSavedMovies,
 }) {
   const [shortMovies, setShortMovies] = React.useState([]);
   const [isChecked, setIsChecked] = React.useState(false);
+  const movies = foundSavedMovies.length > 0 ? foundSavedMovies : savedMovies;
 
   React.useEffect(() => {
     if (isChecked) {
-      setShortMovies(sortShortMovies(savedMovies));
+      setShortMovies(sortShortMovies(movies));
     }
   }, [isChecked]);
   // const [isMoviesFiltered, setIsMoviesFiltered] = React.useState(false);
@@ -45,7 +47,7 @@ export default function SavedMovies({
       />
       <SavedMoviesCardList
         isLoading={isLoading}
-        savedMovies={isChecked ? shortMovies : savedMovies}
+        savedMovies={isChecked ? shortMovies : movies}
         // savedMovies={filteredSavedMovies}
         message={message}
         onMovieUnsave={onMovieUnsave}
