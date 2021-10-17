@@ -1,0 +1,150 @@
+.search {
+  margin: 88px auto 77px;
+  width: calc(100% - 140px);
+}
+
+.search__container {
+  width: 100%;
+  margin: 0 auto;
+  padding-bottom: 70px;
+  border-bottom: 1px solid #e8e8e8;
+}
+
+.search__form {
+  display: flex;
+  flex-direction: row;
+  justify-content: center;
+
+  margin: 0 auto;
+  background: #fdfdfd;
+  box-shadow: 0px 3px 14px rgba(0, 0, 0, 0.08);
+  border-radius: 9px;
+}
+
+.search__input-block {
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+  align-self: center;
+  width: 100%;
+  padding: 0 14px 0;
+  border-right: 1px solid #cbcbcb;
+  height: 40px;
+}
+
+.search__input {
+  width: 100%;
+  border: none;
+  font-size: 18px;
+  border-radius: 9px;
+}
+
+.search__input::placeholder {
+  font-weight: normal;
+  font-size: 18px;
+  line-height: 20px;
+  color: #a0a0a0;
+}
+
+.search__input:focus {
+  outline: 1px solid #e9e7e7;
+}
+
+.search__button {
+  border: none;
+  width: 80px;
+  height: 34px;
+  align-self: center;
+  background-color: transparent;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+.search__button:hover {
+  cursor: pointer;
+  opacity: 0.8;
+}
+
+.search__icon-btn {
+  margin: 0 0 0 46px;
+  width: 34px;
+  height: auto;
+}
+
+.search__icon {
+  width: 34px;
+  height: 34px;
+  padding: 0;
+  box-sizing: border-box;
+  margin: 0 10px 0 0;
+}
+
+@media screen and (max-width: 768px) {
+  .search {
+    margin: 93px auto 75px;
+    width: calc(100% - 60px);
+  }
+
+  .search__input-block {
+    padding: 0 19px 0;
+  }
+
+  .search__container {
+    padding-bottom: 110px;
+  }
+}
+
+@media screen and (max-width: 600px) {
+  .search__form {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    background: transparent;
+    box-shadow: none;
+  }
+
+  .search__input-block {
+    height: 80px;
+    border-right: transparent;
+    background: #fdfdfd;
+    box-shadow: 0px 3px 14px rgba(0, 0, 0, 0.08);
+    border-radius: 9px;
+  }
+
+  .search__input::placeholder {
+    font-size: 15px;
+  }
+
+  .search__icon {
+    display: none;
+  }
+}
+
+@media screen and (max-width: 320px) {
+  .search {
+    margin: 87px auto 50px;
+    width: calc(100% - 20px);
+  }
+
+  .search__form {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    background: transparent;
+    box-shadow: none;
+  }
+
+  .search__container {
+    padding-bottom: 45px;
+  }
+
+  .search__input-block {
+    height: 72px;
+  }
+
+  .search__input::placeholder {
+    font-size: 14px;
+    line-height: 143%;
+    color: #a0a0a0;
+  }
+}

@@ -1,5 +1,7 @@
+/* eslint-disable react-hooks/exhaustive-deps */
 import React from "react";
-import SearchForm from "../SearchForm/SearchForm";
+// import SearchForm from "../SearchForm/SearchForm";
+import SearchSavedMoviesForm from '../SearchSavedMoviesForm/SearchSavedMoviesForm';
 import SavedMoviesCardList from "../SavedMoviesCardList/SavedMoviesCardList";
 import HeaderMovies from "../HeaderMovies/HeaderMovies";
 import Footer from "../Footer/Footer";
@@ -8,34 +10,45 @@ export default function SavedMovies({
   loggedIn,
   message,
   savedMovies,
-  searchMovie,
+  searchSavedMovie,
   onMovieUnsave,
   isLoading,
+  sortShortMovies
 }) {
-  const [isMoviesFiltered, setIsMoviesFiltered] = React.useState(false);
-  const shortMovie = 40;
+  const [shortMovies, setShortMovies] = React.useState([]);
+  const [isChecked, setIsChecked] = React.useState(false);
 
-  const filteredMovies = !isMoviesFiltered
-    ? savedMovies
-    : savedMovies.filter((movie) => movie.duration <= shortMovie);
+  React.useEffect(() => {
+    if (isChecked) {
+      setShortMovies(sortShortMovies(savedMovies));
+    }
+  }, [isChecked]);
+  // const [isMoviesFiltered, setIsMoviesFiltered] = React.useState(false);
+  // const shortMovie = 40;
 
-  function handleFilterMovies(value) {
-    setIsMoviesFiltered(value);
-  }
+  // const filteredSavedMovies = !isMoviesFiltered
+  //   ? savedMovies
+  //   : savedMovies.filter((movies) => movies.duration <= shortMovie);
+
+  // function handleFilterMovies(value) {
+  //   setIsMoviesFiltered(value);    
+  // }
 
   return (
     <section className="saved-movies page__section">
-     <HeaderMovies loggedIn={loggedIn} />
-      <SearchForm
-        searchMovie={searchMovie}       
-        isMoviesFiltered={isMoviesFiltered}
-        onFilterMovies={handleFilterMovies}
-      />    
+      <HeaderMovies loggedIn={loggedIn} />
+      <SearchSavedMoviesForm
+        searchMovie={searchSavedMovie}
+        // isMoviesFiltered={isMoviesFiltered}
+        // onFilterMovies={handleFilterMovies}
+        setIsChecked={setIsChecked}
+      />
       <SavedMoviesCardList
-        isLoading={isLoading}        
-        savedMovies={filteredMovies}
+        isLoading={isLoading}
+        savedMovies={isChecked ? shortMovies : savedMovies}
+        // savedMovies={filteredSavedMovies}
         message={message}
-        onMovieUnsave={onMovieUnsave}        
+        onMovieUnsave={onMovieUnsave}
       />
       <Footer />
     </section>

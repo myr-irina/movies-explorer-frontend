@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React from "react";
 import { NavLink } from "react-router-dom";
 import "./MobileNavigation.css";
 
@@ -6,7 +6,6 @@ import closeBurgerMenu from "./../../images/mobile-close-icon.svg";
 
 export default function MobileNavigation({ loggedIn }) {
   const [open, setOpen] = React.useState(false);
-
   const closeMobileMenu = () => setOpen(false);
 
   return (

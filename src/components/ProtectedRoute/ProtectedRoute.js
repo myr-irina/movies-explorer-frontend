@@ -1,10 +1,11 @@
 import React from "react";
 import { Route, Redirect } from "react-router-dom";
+import Preloader from "../Preloader/Preloader";
 
 export default function ProtectedRoute({ component: Component, ...props }) {
   if (props.isLoading) {
     return (
-      <Route>{() => <div>Данные вашего пользователя загружаются</div>}</Route>
+      <Route>{() => <Preloader/>}</Route>
     );
   }
   return (

@@ -1,3 +1,4 @@
+/* eslint-disable react-hooks/exhaustive-deps */
 import React from "react";
 import "./MoviesCardList.css";
 import MovieCard from "./../MoviesCard/MoviesCard";
@@ -13,7 +14,7 @@ import {
 
 export default function MoviesCardList(props) {
   const movies = props.movies || [];
-  const [windowWidth, setWindowWidth] = React.useState(window.innerWidth);
+  const windowWidth = window.innerWidth;
   const [cardsArray, setCardsArray] = React.useState(0);
 
   const renderCards = React.useCallback(() => {
@@ -36,7 +37,13 @@ export default function MoviesCardList(props) {
 
   React.useEffect(() => renderCards(), [renderCards]);
 
-  console.log(movies)
+  React.useEffect(() => {
+    window.addEventListener("resize", renderCards);
+    return () => {
+      window.removeEventListener("resize", renderCards);
+    };
+  }, []);
+
   return (
     <section className="movies-cardlist">
       {props.isLoading ? (
@@ -45,27 +52,30 @@ export default function MoviesCardList(props) {
         <>
           {props.message && <p className="movies-message">{props.message}</p>}
           <ul className="cards__list">
-            {movies && movies.slice(0, cardsArray).map((movie) => {
-              if (props.savedMovies.find((elem) => elem.movieId === movie.id)) {
-                return (
-                  <MovieCard
-                    card={movie}
-                    key={movie.id}
-                    onChangeState={props.onMovieUnsave}
-                    isMovieSaved={true}
-                  />
-                );
-              } else {
-                return (
-                  <MovieCard
-                    card={movie}
-                    key={movie.id}
-                    onChangeState={props.onMovieSave}
-                    isMovieSaved={false}
-                  />
-                );
-              }
-            })}
+            {movies &&
+              movies.slice(0, cardsArray).map((movie) => {
+                if (
+                  props.savedMovies.find((elem) => elem.movieId === movie.id)
+                ) {
+                  return (
+                    <MovieCard
+                      card={movie}
+                      key={movie.id}
+                      onChangeState={props.onMovieUnsave}
+                      isMovieSaved={true}
+                    />
+                  );
+                } else {
+                  return (
+                    <MovieCard
+                      card={movie}
+                      key={movie.id}
+                      onChangeState={props.onMovieSave}
+                      isMovieSaved={false}
+                    />
+                  );
+                }
+              })}
           </ul>
           {props.movies.length > cardsArray && (
             <button

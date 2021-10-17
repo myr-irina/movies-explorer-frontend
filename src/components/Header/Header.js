@@ -4,7 +4,6 @@ import "./Header.css";
 import Navigation from "../Navigation/Navigation";
 import "./../App/App.css";
 import Logo from "../Logo/Logo";
-import MobileNavigation from "../MobileNavigation/MobileNavigation";
 
 function Header({ loggedIn }) {
   let location = useLocation();

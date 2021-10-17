@@ -30,8 +30,7 @@
   align-items: center;
   width: 100%;
   justify-content: space-between;
-  padding-bottom: 14px;
-  margin-bottom: 18px;
+  padding-bottom: 14px; 
   border-bottom: 1px solid #e8e8e8;
   outline: none;
 }
@@ -81,6 +80,11 @@
   font-weight: 500;
   font-size: 11px;
   line-height: 13px;
+}
+
+.profile__input-message {
+  color: #2BE080;
+  font-size: 500;  
 }
 
 .profile__form-btn {

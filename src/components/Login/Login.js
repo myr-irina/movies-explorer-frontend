@@ -61,6 +61,7 @@ export default function Login(props) {
         <span className="login__input-error" id="password-error">
           {errors.password}
         </span>
+        <span className="login__input-error">{props.message}</span>
 
         <button
           className={`login__form-btn

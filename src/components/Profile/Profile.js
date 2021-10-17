@@ -62,6 +62,7 @@ export default function Profile(props) {
           <span className="login__input-error" id="email-error">
             {errors.email}
           </span>
+          <span className="profile__input-message">{props.message}</span>
 
           <button
             type="submit"

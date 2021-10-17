@@ -1,10 +1,10 @@
 import React from "react";
-import "./SearchForm.css";
+import "./SearchSavedMoviesForm.css";
 import SearchIcon from "./../../images/searchIcon.svg";
 import FilterCheckbox from "./../FilterCheckbox/FilterCheckbox";
 import SearchButton from "./../../images/search-btn.svg";
 
-export default function SearchForm({searchMovie, setIsChecked}) {
+export default function SearchSavedMoviesForm({searchMovie, setIsChecked}) {
 const [searchTerm, setSearchTerm] = React.useState('');
 const [isShortMovies, setIsShortMovies] = React.useState(false);
 

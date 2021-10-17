@@ -16,8 +16,8 @@ export default function SavedMoviesCard(props) {
     return props.onChangeState({ id: props.card.movieId });
   }
 
-  return (
-    <section className="saved-moviecard saved-moviecard__content">
+  return (    
+    <section className="saved-moviecard saved-moviecard__content">    
       <div className="saved-moviecard__block">
         <h3 className="saved-moviecard__title">{props.card.nameRU}</h3>
         <p className="saved-moviecard__duration">

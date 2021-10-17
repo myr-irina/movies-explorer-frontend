@@ -106,6 +106,7 @@
 
 .menu__link_active {
   font-weight: 500;
+  border-bottom: 2px solid black;
 }
 
 .menu__block-movies {
