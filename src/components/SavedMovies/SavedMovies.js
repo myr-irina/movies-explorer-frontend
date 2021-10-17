@@ -1,7 +1,7 @@
 /* eslint-disable react-hooks/exhaustive-deps */
 import React from "react";
 // import SearchForm from "../SearchForm/SearchForm";
-import SearchSavedMoviesForm from '../SearchSavedMoviesForm/SearchSavedMoviesForm';
+import SearchSavedMoviesForm from "../SearchSavedMoviesForm/SearchSavedMoviesForm";
 import SavedMoviesCardList from "../SavedMoviesCardList/SavedMoviesCardList";
 import HeaderMovies from "../HeaderMovies/HeaderMovies";
 import Footer from "../Footer/Footer";
@@ -18,7 +18,10 @@ export default function SavedMovies({
 }) {
   const [shortMovies, setShortMovies] = React.useState([]);
   const [isChecked, setIsChecked] = React.useState(false);
-  const movies = foundSavedMovies.length > 0 ? foundSavedMovies : savedMovies;
+  let movies = foundSavedMovies.length > 0 ? foundSavedMovies : savedMovies;
+  if (message) {
+    movies = [];
+  }
 
   React.useEffect(() => {
     if (isChecked) {
@@ -33,7 +36,7 @@ export default function SavedMovies({
   //   : savedMovies.filter((movies) => movies.duration <= shortMovie);
 
   // function handleFilterMovies(value) {
-  //   setIsMoviesFiltered(value);    
+  //   setIsMoviesFiltered(value);
   // }
 
   return (
