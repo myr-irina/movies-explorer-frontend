@@ -24,10 +24,10 @@ export default function SavedMovies({
   }
 
   React.useEffect(() => {
-    if (isChecked) {
+    if (isChecked && !message) {
       setShortMovies(sortShortMovies(movies));
     }
-  }, [isChecked]);
+  }, [isChecked, movies]);
   // const [isMoviesFiltered, setIsMoviesFiltered] = React.useState(false);
   // const shortMovie = 40;
 
