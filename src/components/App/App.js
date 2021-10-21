@@ -41,7 +41,7 @@ function App() {
   const [foundSavedMovies, setFoundSavedMovies] = React.useState([]);
   const [message, setMessage] = React.useState(null);
   const [isFormSending, setIsFormSending] = React.useState(false);
-  const shortMovie = 40;
+  const shortMovie = 40; //вынести в contants
 
   const history = useHistory();
 
@@ -308,7 +308,9 @@ function App() {
             <Preloader />
           ) : (
             <Switch>
-              <Route exact path="/" component={Main} />
+              <Route  exact path="/">
+                <Main loggedIn={loggedIn}/>
+              </Route>
 
               <ProtectedRoute
                 path="/movies"
