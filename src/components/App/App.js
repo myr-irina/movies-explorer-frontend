@@ -50,6 +50,7 @@ function App() {
   };
 
   React.useEffect(() => {
+    console.log("loggedIn", loggedIn);
     if (loggedIn) {
       const userLocalStorage = localStorage.getItem("currentUser");
       const moviesLocalStorage = localStorage.getItem("movies");
@@ -141,8 +142,7 @@ function App() {
     mainApi
       .login(data)
       .then((res) => {
-        handleTokenCheck();
-        history.push("/movies");
+        handleTokenCheck();     
       })
       .catch((err) => {
         if (err === "400") {
@@ -291,8 +291,10 @@ function App() {
           JSON.stringify(savedMovies.filter((i) => i._id !== savedMovie._id))
         );
         setSavedMovies(savedMovies.filter((i) => i._id !== savedMovie._id));
-        const leftOverFoundSavedMovies = foundSavedMovies.filter((i) => i._id !== savedMovie._id);
-        if(!leftOverFoundSavedMovies.length) {
+        const leftOverFoundSavedMovies = foundSavedMovies.filter(
+          (i) => i._id !== savedMovie._id
+        );
+        if (!leftOverFoundSavedMovies.length) {
           setMessage(MOVIES_NOT_FOUND_MESSAGE);
         }
         setFoundSavedMovies(leftOverFoundSavedMovies);
@@ -313,8 +315,8 @@ function App() {
             <Preloader />
           ) : (
             <Switch>
-              <Route  exact path="/">
-                <Main loggedIn={loggedIn}/>
+              <Route exact path="/">
+                <Main loggedIn={loggedIn} />
               </Route>
 
               <ProtectedRoute
@@ -329,6 +331,7 @@ function App() {
                 onMovieSave={handleMovieLike}
                 onMovieUnsave={handleDeleteMovie}
                 sortShortMovies={sortShortMovies}
+                isUserDataLoading={isUserDataLoading}
               />
 
               <ProtectedRoute
@@ -342,6 +345,7 @@ function App() {
                 onMovieUnsave={handleDeleteMovie}
                 isLoading={isSavedMoviesLoading}
                 sortShortMovies={sortShortMovies}
+                isUserDataLoading={isUserDataLoading}
               />
 
               <ProtectedRoute
@@ -353,6 +357,7 @@ function App() {
                 onEditProfile={handleEditProfile}
                 isSending={isFormSending}
                 message={message}
+                isUserDataLoading={isUserDataLoading}
               />
 
               <Route path="/signup">
