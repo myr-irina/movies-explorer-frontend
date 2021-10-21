@@ -9,15 +9,15 @@ import Footer from "../Footer/Footer";
 import Header from "../Header/Header";
 import "./Main.css";
 
-export default function Main( {loggedIn}) {
+export default function Main({ loggedIn }) {
   return (
     <section className="main">
-      <Header loggedIn={loggedIn}/>      
+      <Header loggedIn={loggedIn} />
       <Promo />
       <NavTab />
       <AboutProject />
       <Techs />
-      <AboutMe />    
+      <AboutMe />
       <Footer />
     </section>
   );

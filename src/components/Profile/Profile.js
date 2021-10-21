@@ -1,9 +1,9 @@
 import React from "react";
 import { Link } from "react-router-dom";
 import "./Profile.css";
-import Header from "../Header/Header";
 import { CurrentUserContext } from "./../../contexts/CurrentUserContext";
 import { useFormWithValidation } from "../../utils/validation/Validation";
+import HeaderMovies from "../HeaderMovies/HeaderMovies";
 
 export default function Profile(props) {
   const currentUser = React.useContext(CurrentUserContext);
@@ -24,7 +24,7 @@ export default function Profile(props) {
 
   return (
     <section className="profile">
-      <Header loggedIn={props.loggedIn} />
+      <HeaderMovies loggedIn={props.loggedIn} />
       <h2 className="profile__heading">{`Привет, ${currentUser.name}!`}</h2>
       <article className="page__content">
         <form className="profile__form" onSubmit={handleSubmit}>

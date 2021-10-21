@@ -314,9 +314,7 @@ function App() {
             <Preloader />
           ) : (
             <Switch>
-              <Route exact path="/">
-                <Main loggedIn={loggedIn} />
-              </Route>
+              <Route exact path="/" component={Main} />
 
               <ProtectedRoute
                 path="/movies"
