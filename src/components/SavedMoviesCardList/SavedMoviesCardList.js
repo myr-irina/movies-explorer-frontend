@@ -1,7 +1,7 @@
 /* eslint-disable react-hooks/exhaustive-deps */
 import React from "react";
 import "./SavedMoviesCardList.css";
-import SavedMoviesCard from './../SavedMoviesCard/SavedMoviesCard';
+import SavedMoviesCard from "./../SavedMoviesCard/SavedMoviesCard";
 import Preloader from "../Preloader/Preloader";
 
 import {
@@ -24,7 +24,7 @@ export default function SavedMoviesCardList(props) {
       setCardsArray(CARDS_FOR_MIN_WIN_SIZE);
     }
   }
-   // eslint-disable-next-line react-hooks/exhaustive-deps
+  // eslint-disable-next-line react-hooks/exhaustive-deps
   React.useEffect(() => renderCards(), [windowWidth]);
 
   React.useEffect(() => {
@@ -35,25 +35,21 @@ export default function SavedMoviesCardList(props) {
   }, []);
 
   return (
-    <>
-      <section className="saved-movies-cardlist">
+    <section className="saved-movies-cardlist">
       {props.isLoading && <Preloader />}
-        {props.message && (
-          <p className="saved-movies-message">{props.message}</p>
-        )}
-      
-        <ul className="saved-cards__list">     
-          {savedMovies.slice(0, cardsArray).map((savedMovie) => {
-            return (
-              <SavedMoviesCard
-                card={savedMovie}             
-                key={savedMovie._id}
-                onChangeState={props.onMovieUnsave}              
-              />
-            );
-          })}
-        </ul>
-      </section>
-    </>
+      {props.message && <p className="saved-movies-message">{props.message}</p>}
+
+      <ul className="saved-cards__list">
+        {savedMovies.slice(0, cardsArray).map((savedMovie) => {
+          return (
+            <SavedMoviesCard
+              card={savedMovie}
+              key={savedMovie._id}
+              onChangeState={props.onMovieUnsave}
+            />
+          );
+        })}
+      </ul>
+    </section>
   );
 }

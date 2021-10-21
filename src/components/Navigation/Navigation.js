@@ -23,37 +23,35 @@ export default function Navigation({ loggedIn }) {
         </ul>
       )}
       {loggedIn && (
-        <>
-          <nav className="normal-nav">
-            <div className="normal-nav__wrapper">
-              <li>
-                <NavLink
-                  to="/movies"
-                  className="menu__link menu__link-movies"
-                  activeClassName="menu__link_active"
-                >
-                  Фильмы
-                </NavLink>
-              </li>
-              <li>
-                <NavLink
-                  to="/saved-movies"
-                  className="menu__link"
-                  activeClassName="menu__link_active"
-                >
-                  Сохраненные фильмы
-                </NavLink>
-              </li>
-            </div>
-            <NavLink
-              to="/profile"
-              className="menu__link"
-              activeClassName="menu__link_active"
-            >
-              <button className="menu__profile-button">Аккаунт</button>
-            </NavLink>
-          </nav>
-        </>
+        <nav className="normal-nav">
+          <div className="normal-nav__wrapper">
+            <li>
+              <NavLink
+                to="/movies"
+                className="menu__link menu__link-movies"
+                activeClassName="menu__link_active"
+              >
+                Фильмы
+              </NavLink>
+            </li>
+            <li>
+              <NavLink
+                to="/saved-movies"
+                className="menu__link"
+                activeClassName="menu__link_active"
+              >
+                Сохраненные фильмы
+              </NavLink>
+            </li>
+          </div>
+          <NavLink
+            to="/profile"
+            className="menu__link"
+            activeClassName="menu__link_active"
+          >
+            <button className="menu__profile-button">Аккаунт</button>
+          </NavLink>
+        </nav>
       )}
     </>
   );

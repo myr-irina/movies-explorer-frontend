@@ -10,19 +10,19 @@ function HeaderMovies({ loggedIn }) {
   let location = useLocation();
 
   return (
-    <>
-      <header
-        className={`${
-          location.pathname === "/" ? "header-movies" : "header-movies header-movies-logged-in"
-        }`}
-      >
-        <article className="header-movies__section">
-          <Logo />
-          <Navigation loggedIn={loggedIn} />
-          <MobileNavigation loggedIn={loggedIn}/>
-        </article>
-      </header>
-    </>
+    <header
+      className={`${
+        location.pathname === "/"
+          ? "header-movies"
+          : "header-movies header-movies-logged-in"
+      }`}
+    >
+      <article className="header-movies__section">
+        <Logo />
+        <Navigation loggedIn={loggedIn} />
+        <MobileNavigation loggedIn={loggedIn} />
+      </article>
+    </header>
   );
 }
 
