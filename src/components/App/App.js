@@ -38,7 +38,7 @@ function App() {
   const [movies, setMovies] = React.useState([]);
   const [savedMovies, setSavedMovies] = React.useState([]);
   const [foundMovies, setFoundMovies] = React.useState([]);
-  const [foundSavedMovies, setFoundSavedMovies ] = React.useState([]);
+  const [foundSavedMovies, setFoundSavedMovies] = React.useState([]);
   const [message, setMessage] = React.useState(null);
   const [isFormSending, setIsFormSending] = React.useState(false);
   const shortMovie = 40;
@@ -232,7 +232,6 @@ function App() {
 
   //функция сохранения фильмв
   function handleMovieLike(movie) {
-    console.log(movie);
     mainApi
       .saveMovie(movie)
       .then((res) => {
@@ -252,7 +251,7 @@ function App() {
   //функция поиска в сохраненных фильмах
   function handleSavedMovieSearch(query) {
     const searchTerm = query.toLowerCase();
-    if(searchTerm === '') {
+    if (searchTerm === "") {
       setFoundSavedMovies([]);
       resetMessage();
       return;
