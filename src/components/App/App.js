@@ -291,6 +291,11 @@ function App() {
           JSON.stringify(savedMovies.filter((i) => i._id !== savedMovie._id))
         );
         setSavedMovies(savedMovies.filter((i) => i._id !== savedMovie._id));
+        const leftOverFoundSavedMovies = foundSavedMovies.filter((i) => i._id !== savedMovie._id);
+        if(!leftOverFoundSavedMovies.length) {
+          setMessage(MOVIES_NOT_FOUND_MESSAGE);
+        }
+        setFoundSavedMovies(leftOverFoundSavedMovies);
       })
       .catch((err) => {
         console.log(err);
