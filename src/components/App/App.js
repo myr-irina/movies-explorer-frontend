@@ -50,7 +50,6 @@ function App() {
   };
 
   React.useEffect(() => {
-    console.log("loggedIn", loggedIn);
     if (loggedIn) {
       const userLocalStorage = localStorage.getItem("currentUser");
       const moviesLocalStorage = localStorage.getItem("movies");
@@ -142,7 +141,7 @@ function App() {
     mainApi
       .login(data)
       .then((res) => {
-        handleTokenCheck();     
+        handleTokenCheck();
       })
       .catch((err) => {
         if (err === "400") {

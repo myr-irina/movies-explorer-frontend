@@ -44,11 +44,7 @@ export default function Navigation({ loggedIn }) {
               </NavLink>
             </li>
           </div>
-          <NavLink
-            to="/profile"
-            className="menu__link"
-            activeClassName="menu__link_active"
-          >
+          <NavLink to="/profile" className="menu__link">
             <button className="menu__profile-button">Аккаунт</button>
           </NavLink>
         </nav>
