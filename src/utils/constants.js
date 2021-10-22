@@ -2,6 +2,7 @@ export const MAIN_API = 'https://api.films.nomoredomains.monster';
 export const MOVIES_API = 'https://api.nomoreparties.co/beatfilm-movies';
 export const MOVIES_IMAGE_BASE_URL = 'https://api.nomoreparties.co';
 
+export const shortMovie = 40; 
 
 const CARDS_FOR_MAX_WIN_SIZE = 12;
 const CARDS_FOR_MEDIUM_WIN_SIZE = 8;
