@@ -25,6 +25,7 @@ import {
   SUCCSESS_UPDATE_MESSAGE,
   MOVIES_SERVER_ERROR_MESSAGE,
 } from "./../../utils/responseMessages";
+import { shortMovie } from "./../../utils/constants";
 
 function App() {
   const [currentUser, setCurrentUser] = React.useState({
@@ -41,7 +42,6 @@ function App() {
   const [foundSavedMovies, setFoundSavedMovies] = React.useState([]);
   const [message, setMessage] = React.useState(null);
   const [isFormSending, setIsFormSending] = React.useState(false);
-  const shortMovie = 40; //вынести в contants
 
   const history = useHistory();
 
@@ -278,25 +278,25 @@ function App() {
   //функция удаления фильма
   function handleDeleteMovie(movie) {
     const savedMovie = savedMovies.find((elem) => elem.movieId === movie.id);
+
     if (!savedMovie) {
       console.error("Попытка удалить фильм, который не был сохранен.", movie);
       return;
     }
+
     mainApi
       .deleteMovie(savedMovie._id)
+
       .then((res) => {
         localStorage.setItem(
           "savedMovies",
           JSON.stringify(savedMovies.filter((i) => i._id !== savedMovie._id))
         );
+
         setSavedMovies(savedMovies.filter((i) => i._id !== savedMovie._id));
-        const leftOverFoundSavedMovies = foundSavedMovies.filter(
-          (i) => i._id !== savedMovie._id
+        setFoundSavedMovies(
+          savedMovies.filter((i) => i._id !== savedMovie._id)
         );
-        if (!leftOverFoundSavedMovies.length) {
-          setMessage(MOVIES_NOT_FOUND_MESSAGE);
-        }
-        setFoundSavedMovies(leftOverFoundSavedMovies);
       })
       .catch((err) => {
         console.log(err);
@@ -314,7 +314,9 @@ function App() {
             <Preloader />
           ) : (
             <Switch>
-              <Route exact path="/" component={Main} />
+              <Route exact path="/">
+                <Main loggedIn={loggedIn} />
+              </Route>
 
               <ProtectedRoute
                 path="/movies"
