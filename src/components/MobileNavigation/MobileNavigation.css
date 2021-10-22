@@ -42,7 +42,7 @@
 
 .menu-burger {
   display: none;
-  background: #ffffff;
+  background: transparent;
   width: 44px;
   height: 44px;
   padding: 0;
