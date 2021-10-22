@@ -6,13 +6,13 @@ import AboutProject from "./../AboutProject/AboutProject";
 import Techs from "./../Techs/Techs";
 import AboutMe from "./../AboutMe/AboutMe";
 import Footer from "../Footer/Footer";
-import Header from "../Header/Header";
 import "./Main.css";
+import HeaderMovies from "../HeaderMovies/HeaderMovies";
 
 export default function Main({ loggedIn }) {
   return (
     <section className="main">
-      <Header loggedIn={loggedIn} />
+      <HeaderMovies loggedIn={loggedIn} />
       <Promo />
       <NavTab />
       <AboutProject />
