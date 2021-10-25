@@ -239,11 +239,14 @@ function App() {
           JSON.stringify([res, ...savedMovies])
         );
         setSavedMovies([res, ...savedMovies]);
+        setFoundSavedMovies([res, ...savedMovies]);
+        setMessage('');
       })
       .catch((err) => {
         console.log(
-          `Невозможно сохранить карточку с фильмом. Код ошибки ${err.code}`
+          `Невозможно сохранить карточку с фильмом. Код ошибки ${err}`
         );
+        setMessage(err);
       });
   }
 
@@ -383,8 +386,8 @@ function App() {
                 )}
               </Route>
 
-              <Route path="*">
-                <PageNotFound />
+              <Route path="/*">
+                <PageNotFound loggedIn={loggedIn}/>
               </Route>
             </Switch>
           )}
