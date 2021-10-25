@@ -37,6 +37,7 @@
   border: none;
   font-size: 18px;
   border-radius: 9px;
+  position: relative;
 }
 
 .search__input::placeholder {
@@ -77,6 +78,15 @@
   padding: 0;
   box-sizing: border-box;
   margin: 0 10px 0 0;
+}
+
+.search__input_error {
+  font-size: 10px;
+  line-height: 1.2;
+  color: black;
+  cursor: text;
+  position: absolute;
+  left: 30%;
 }
 
 @media screen and (max-width: 768px) {
