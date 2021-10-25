@@ -1,13 +1,17 @@
 import React from "react";
-import { Link, useHistory } from "react-router-dom";
+import { useHistory } from "react-router-dom";
 
 import "./PageNotFound.css";
 
-function PageNotFound() {
+function PageNotFound({ loggedIn }) {
   const history = useHistory();
 
   function handleClick() {
-    history.goBack();
+    if (loggedIn) {
+      history.goBack();
+    } else {
+      history.push("/");
+    }
   }
 
   return (
@@ -16,9 +20,9 @@ function PageNotFound() {
         <span className="not-found not-found_type_404">404</span> Страница не
         найдена
       </h3>
-      <Link className="button button_type_to-main" onClick={handleClick}>
+      <button className="button button_type_to-main" onClick={handleClick}>
         Назад
-      </Link>
+      </button>
     </div>
   );
 }
