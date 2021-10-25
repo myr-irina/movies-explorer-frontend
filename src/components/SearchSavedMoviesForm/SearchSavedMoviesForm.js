@@ -7,6 +7,7 @@ import SearchButton from "./../../images/search-btn.svg";
 export default function SearchSavedMoviesForm({searchMovie, setIsChecked}) {
 const [searchTerm, setSearchTerm] = React.useState('');
 const [isShortMovies, setIsShortMovies] = React.useState(false);
+const [errorMessage, setErrorMessage] = React.useState("");
 
 function onCheckboxToggle(checked) {
   setIsShortMovies(checked);
@@ -18,8 +19,13 @@ function onChange(e) {
 }
 
   function handleSubmit(e) {
-    e.preventDefault();  
-    searchMovie(searchTerm);    
+    if (!searchTerm) {
+      setErrorMessage("Нужно ввести ключевое слово")
+      return;
+    }
+    
+    searchMovie(searchTerm);
+    setErrorMessage("");  
   }
 
   return (
@@ -36,9 +42,9 @@ function onChange(e) {
               placeholder="Фильм"
               autoComplete="off"
               minLength="2"
-              maxLength="200"
-              required
+              maxLength="200"            
             />
+             <p className="search__input_error">{errorMessage}</p>
             <button className="search__button" type='submit'>
               <img className="search__icon-btn"src={SearchButton} alt="иконка кнопки поиска" />
             </button>
