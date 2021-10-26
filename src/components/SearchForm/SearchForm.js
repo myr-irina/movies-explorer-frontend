@@ -9,6 +9,10 @@ export default function SearchForm({ searchMovie, setIsChecked }) {
   const [isShortMovies, setIsShortMovies] = React.useState(false);
   const [errorMessage, setErrorMessage] = React.useState("");
 
+  React.useEffect(() => {
+    setErrorMessage("");
+  }, [searchTerm]);
+
   function onCheckboxToggle(checked) {
     setIsShortMovies(checked);
     setIsChecked(!isShortMovies);
@@ -27,7 +31,6 @@ export default function SearchForm({ searchMovie, setIsChecked }) {
     }
 
     searchMovie(searchTerm);
-    setErrorMessage("");
   }
 
   return (
