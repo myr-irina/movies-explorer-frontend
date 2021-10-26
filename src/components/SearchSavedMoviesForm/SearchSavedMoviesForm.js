@@ -23,6 +23,7 @@ export default function SearchSavedMoviesForm({ searchMovie, setIsChecked }) {
   }
 
   function handleSubmit(e) {
+    e.preventDefault();
     if (!searchTerm) {
       setErrorMessage("Нужно ввести ключевое слово");
       return;
