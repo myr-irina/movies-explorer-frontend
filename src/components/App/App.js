@@ -16,14 +16,14 @@ import moviesApi from "./../../utils/MoviesApi";
 import mainApi from "../../utils/MainApi";
 import Preloader from "./../Preloader/Preloader";
 import {
-  CONFLICT_EMAIL_MESSAGE,
-  REG_ERROR_MESSAGE,
+  CONFLICT_EMAIL_MESSAGE, 
   AUTH_ERROR_MESSAGE,
   PROFILE_UPDATE_ERROR_MESSAGE,
   SERVER_ERROR_MESSAGE,
   MOVIES_NOT_FOUND_MESSAGE,
   SUCCSESS_UPDATE_MESSAGE,
   MOVIES_SERVER_ERROR_MESSAGE,
+  INVALID_DATA_MESSAGE,
 } from "./../../utils/responseMessages";
 import { shortMovie } from "./../../utils/constants";
 
@@ -145,7 +145,7 @@ function App() {
       })
       .catch((err) => {
         if (err === "400") {
-          return showResponseMessage(REG_ERROR_MESSAGE);
+          return showResponseMessage(INVALID_DATA_MESSAGE);
         } else if (err === "401") {
           return showResponseMessage(AUTH_ERROR_MESSAGE);
         } else if (err === "500") {
@@ -165,7 +165,7 @@ function App() {
       })
       .catch((err) => {
         if (err === "400") {
-          return showResponseMessage(REG_ERROR_MESSAGE);
+          return showResponseMessage(INVALID_DATA_MESSAGE);
         } else if (err === "409") {
           return showResponseMessage(CONFLICT_EMAIL_MESSAGE);
         } else if (err === "500") {
