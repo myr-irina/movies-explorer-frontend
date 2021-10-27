@@ -53,6 +53,7 @@ export default function Login(props) {
           type="password"
           required
           value={values.password || ""}
+          minLength="8"
           onChange={handleChange}
           autoComplete="off"
           disabled={props.isSending}
