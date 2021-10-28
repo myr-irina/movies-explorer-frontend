@@ -7,15 +7,17 @@ import Techs from "./../Techs/Techs";
 import AboutMe from "./../AboutMe/AboutMe";
 import Footer from "../Footer/Footer";
 import "./Main.css";
+import HeaderMovies from "../HeaderMovies/HeaderMovies";
 
-export default function Main() {
+export default function Main({ loggedIn }) {
   return (
     <section className="main">
+      <HeaderMovies loggedIn={loggedIn} />
       <Promo />
       <NavTab />
       <AboutProject />
       <Techs />
-      <AboutMe />    
+      <AboutMe />
       <Footer />
     </section>
   );

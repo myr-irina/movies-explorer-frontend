@@ -42,27 +42,14 @@
 
 .menu-burger {
   display: none;
-  background: #ffffff;
-  max-width: 3px;
-  max-height: 28px;
+  background: transparent;
+  width: 44px;
+  height: 44px;
   padding: 0;
   box-sizing: border-box;
   border: none;
   position: relative;
-}
-
-.menu-burger__bar {
-  display: block;
-  width: 28px;
-  height: 3px;
-  margin: 8px 8px 4px 8px;
-  transition: 0.3s;
-  background-color: #000000;
-  box-sizing: border-box;
-}
-
-.menu-burger__bar:last-of-type {
-  margin-bottom: 10px;
+  background-image: url(./../../images/icon_burger.svg);
 }
 
 .menu-burger__close-btn {
@@ -144,14 +131,14 @@
     display: block;
     cursor: pointer;
     position: absolute;
-    right: 9%;
+    right: 4%;
     top: 15px;
   }
 }
 
 @media screen and (max-width: 455px) {
   .menu-burger {
-  right: 15%;
+    right: 7%;
   }
 }
 
@@ -161,7 +148,7 @@
   }
 
   .menu-burger {
-    right: 16%;
+    right: 4.4%;
     top: 16px;
   }
 

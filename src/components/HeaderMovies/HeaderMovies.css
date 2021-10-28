@@ -1,0 +1,33 @@
+.header-movies {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  background: #5c5c5c;
+  width: 100%;
+}
+
+.header-movies__section {
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+  align-items: center;
+  width: 100%;
+  padding: 18px 70px 0 70px;
+  margin: 0 auto;
+}
+
+.header-movies-logged-in {
+  background-color: transparent;
+}
+
+@media screen and (max-width: 768px) {
+  .header-movies__section {
+    padding: 18px 30px 0 30px;
+  }
+}
+
+@media screen and (max-width: 320px) {
+  .header-movies__section {
+    padding: 18px 14px 0 14px;
+  }
+}

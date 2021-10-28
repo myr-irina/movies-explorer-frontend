@@ -1,29 +1,26 @@
+/* eslint-disable react-hooks/exhaustive-deps */
 import React from "react";
 import { Link } from "react-router-dom";
 import "./Register.css";
 import Logo from "../Logo/Logo";
+import { useFormWithValidation } from "../../utils/validation/Validation";
 
 export default function Register(props) {
-  const [name, setName] = React.useState("");
-  const [email, setEmail] = React.useState("");
-  const [password, setPassword] = React.useState("");
+  const { values, handleChange, resetForm, errors, isValid } =
+    useFormWithValidation();
 
-  function handleNameChange(e) {
-    setName(e.target.value);
-  }
+  React.useEffect(() => {
+    resetForm({});
+  }, []);
 
-  function handleEmailChange(e) {
-    setEmail(e.target.value);
-  }
-
-  function handlePasswordChange(e) {
-    setPassword(e.target.value);
-  }
-
-  function handleSubmit(e) {
+  const handleSubmit = (e) => {
     e.preventDefault();
-    props.onRegister(name, email, password);
-  }
+    if (!values.email || !values.password) {
+      return;
+    }
+    const { password, email, name } = values;
+    props.onRegister({ password, email, name });
+  };
 
   return (
     <section className="register">
@@ -37,14 +34,18 @@ export default function Register(props) {
         <input
           className="register__field register__field-name"
           name="name"
-          // value={name || ""}
-          // onChange={handleNameChange}
+          value={values.name || ""}
+          onChange={handleChange}
           type="text"
           autoComplete="off"
           minLength="2"
           maxLength="40"
           required
+          disabled={props.isSending}
         ></input>
+        <span className="register__input-error" id="name-error">
+          {errors.name}
+        </span>
 
         <span className="register__input">E-mail</span>
         <input
@@ -52,10 +53,15 @@ export default function Register(props) {
           name="email"
           type="email"
           required
-          // value={email || ""}
-          // onChange={handleEmailChange}
+          pattern="^([\w-]+(?:\.[\w-]+)*)@((?:[\w-]+\.)*\w[\w-]{0,66})\.([a-z]{2,6}(?:\.[a-z]{2})?)$"
+          value={values.email || ""}
+          onChange={handleChange}
           autoComplete="off"
+          disabled={props.isSending}
         ></input>
+        <span className="register__input-error" id="email-error">
+          {errors.email}
+        </span>
 
         <span className="register__input">Пароль</span>
         <input
@@ -63,14 +69,24 @@ export default function Register(props) {
           name="password"
           type="password"
           required
-          // value= ".............."
-          // onChange={handlePasswordChange}
+          value={values.password || ""}
+          minLength="8"
+          onChange={handleChange}
           autoComplete="off"
+          disabled={props.isSending}
         ></input>
-        <span className="register__input-error">Что-то пошло не так...</span>
+        <span className="register__input-error" id="password-error">
+          {errors.password}
+        </span>
+        <span className="register__input-error">{props.message}</span>
 
-        <button className="register__form-btn" type="submit">
-          Зарегистрироваться
+        <button
+          type="submit"
+          className={`register__form-btn
+            ${!isValid && "register__form-btn_disabled"}
+            ${props.isSending && "register__form-btn_disabled"}`}
+        >
+          {props.isSending ? "Регистрация..." : "Зарегистрироваться"}
         </button>
         <div className="register__signin">
           <p className="register__link-title">Уже зарегистрированы?</p>

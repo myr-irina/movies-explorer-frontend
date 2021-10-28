@@ -32,6 +32,9 @@
   color: #2be080;
   text-decoration: none;
   margin: 168px auto 60px;
+  border: none;
+  background: none;
+  cursor: pointer;
 }
 
 @media screen and (max-width: 320px) {

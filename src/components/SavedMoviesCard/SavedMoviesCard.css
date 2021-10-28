@@ -1,16 +1,16 @@
-.moviecard {
+.saved-moviecard {
   display: flex;
   flex-direction: column;
   justify-content: center;
 }
 
-.moviecard__content {
+.saved-moviecard__content {
   background: #fdfdfd;
   box-shadow: 0px 4px 30px rgba(0, 0, 0, 0.08);
   border-radius: 6px;
 }
 
-.moviecard__title {
+.saved-moviecard__title {
   font-weight: 500;
   font-size: 15px;
   line-height: 1.2;
@@ -18,14 +18,14 @@
   margin: 0;
 }
 
-.moviecard__block {
+.saved-moviecard__block {
   display: flex;
   flex-direction: row;
   justify-content: space-between;
   margin: 18px;
 }
 
-.moviecard__duration {
+.saved-moviecard__duration {
   font-size: 13px;
   line-height: 1.4;
   text-align: right;
@@ -34,22 +34,22 @@
   margin: 0 0 0 7px;
 }
 
-.moviecard__link {
+.saved-moviecard__link {
   transition: opacity 0.35s ease;
   width: 100%; 
 }
 
-.moviecard__link:hover {
+.saved-moviecard__link:hover {
   cursor: pointer;
 }
 
-.moviecard__pic {
+.saved-moviecard__pic {
   object-fit: cover;
   width: 100%;
-  max-height: 200px;
+  height: 200px;
 }
 
-.moviecard__button {
+.saved-moviecard__button {
   background: #f9f9f9;
   border-radius: 30px;
   width: 100px;
@@ -64,65 +64,65 @@
   transition: opacity 0.3s ease-in-out;
 }
 
-.moviecard__button:hover {
+.saved-moviecard__button:hover {
   opacity: 0.7;
   cursor: pointer;
 }
 
-.moviecard__button_type_saved {
+.saved-moviecard__button_type_saved {
   background: url("./../../images/icon_save.svg") no-repeat center;
   background-color: #ee3465;
   background-size: 8px;
 }
 
-.moviecard__button_type_delete {
+.saved-moviecard__button_type_delete {
   background: url("./../../images/icon_cross.svg") no-repeat center #f9f9f9;
   border-radius: 30px;
   background-size: 7px;
 }
 
 @media screen and (max-width: 572px) {
-  .moviecard__title {
+  .saved-moviecard__title {
     font-size: 12px;
   }
 
-  .moviecard__duration {
+  .saved-moviecard__duration {
     font-size: 10px;
   }
 }
 
 @media screen and (max-width: 500px) {
-  .moviecard__title {
+  .saved-moviecard__title {
     font-size: 15px;
   }
 
-  .moviecard__duration {
+  .saved-moviecard__duration {
     font-size: 13px;
   }
 }
 
 @media screen and (max-width: 320px) {
-  .moviecard__content {
+  .saved-moviecard__content {
     max-width: 300px;
     height: auto;
     margin: 0;
   }
 
-  .moviecard__title {
+  .saved-moviecard__title {
     font-size: 12px;
     line-height: 18px;
   }
 
-  .moviecard__duration {
+  .saved-moviecard__duration {
     font-size: 10px;
     line-height: 180%;
   }
 
-  .moviecard__block {
+  .saved-moviecard__block {
     margin: 14px;
   }
 
-  .moviecard__button {
+  .saved-moviecard__button {
     margin: 14px 0;
   }
 }

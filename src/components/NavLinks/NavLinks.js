@@ -6,7 +6,6 @@ import "./NavLinks.css";
 export default function NavLinks() {
   return (
     <>
-      {/* <ul className="menu_logged-in"> */}
       <li>
         <NavLink
           to="/movies"
@@ -25,7 +24,6 @@ export default function NavLinks() {
           Сохраненные фильмы
         </NavLink>
       </li>
-      {/* </ul> */}
 
       <NavLink
         to="/profile"

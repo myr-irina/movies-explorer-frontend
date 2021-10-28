@@ -1,37 +1,51 @@
 import React from "react";
+import { Link } from "react-router-dom";
 import "./Profile.css";
+import { CurrentUserContext } from "./../../contexts/CurrentUserContext";
+import { useFormWithValidation } from "../../utils/validation/Validation";
+import HeaderMovies from "../HeaderMovies/HeaderMovies";
 
-export default function Profile() {
-  const [name, setName] = React.useState("");
-  const [email, setEmail] = React.useState("");
+export default function Profile(props) {
+  const currentUser = React.useContext(CurrentUserContext);
 
-  function handleNameChange(e) {
-    setName(e.target.value);
+  const { values, handleChange, resetForm, errors, isValid } =
+    useFormWithValidation();
+
+  React.useEffect(() => {
+    if (currentUser) {
+      resetForm(currentUser, {}, true);
+    }
+  }, [currentUser, resetForm]);
+
+  function handleSubmit(e) {
+    e.preventDefault();
+    props.onEditProfile({ email: values.email, name: values.name });
   }
 
-  function handleEmailChange(e) {
-    setEmail(e.target.value);
-  }
   return (
     <section className="profile">
-      <h2 className="profile__heading">Привет, Ирина!</h2>
+      <HeaderMovies loggedIn={props.loggedIn} />
+      <h2 className="profile__heading">{`Привет, ${currentUser.name}!`}</h2>
       <article className="page__content">
-        <form className="profile__form">
+        <form className="profile__form" onSubmit={handleSubmit}>
           <div className="profile__input-wrapper">
             <span className="profile__input-name">Имя</span>
             <input
               className="profile__field-name"
               name="name"
-              // value="Ирина"
-              onChange={handleNameChange}
+              value={values.name || currentUser.name}
+              onChange={handleChange}
               type="text"
+              pattern="^[А-Яа-яЁёA-Za-z]+-? ?[А-Яа-яЁёA-Za-z]+$"
               autoComplete="off"
               minLength="2"
               maxLength="40"
               required
             ></input>
           </div>
-
+          <span className="login__input-error" id="name-error">
+            {errors.name}
+          </span>
           <div className="profile__input-wrapper">
             <span className="profile__input-email">E-mail</span>
             <input
@@ -39,21 +53,39 @@ export default function Profile() {
               name="email"
               type="email"
               required
-              value="myr-irina2@yandex.ru"
-              onChange={handleEmailChange}
+              pattern="^([\w-]+(?:\.[\w-]+)*)@((?:[\w-]+\.)*\w[\w-]{0,66})\.([a-z]{2,6}(?:\.[a-z]{2})?)$"
+              value={values.email || currentUser.email}
+              onChange={handleChange}
               autoComplete="off"
             ></input>
           </div>
+          <span className="login__input-error" id="email-error">
+            {errors.email}
+          </span>
+          <span className="profile__input-message">{props.message}</span>
 
-          <button className="profile__form-btn" type="submit">
+          <button
+            type="submit"
+            className={`profile__form-btn
+          ${!isValid && "profile__form-btn_disabled"}
+          ${
+            values.email === currentUser.email &&
+            values.name === currentUser.name &&
+            "profile__form-btn_disabled"
+          }
+          ${props.isSending && "profile__form-btn_disabled"}`}
+          >
             Редактировать
           </button>
-          <button
-            className="profile__form-btn profile__form-btn_type_exit"
-            type="button"
-          >
-            Выйти из аккаунта
-          </button>
+          <Link to="/">
+            <button
+              className="profile__form-btn profile__form-btn_type_exit"
+              type="button"
+              onClick={props.onSignOut}
+            >
+              Выйти из аккаунта
+            </button>
+          </Link>
         </form>
       </article>
     </section>

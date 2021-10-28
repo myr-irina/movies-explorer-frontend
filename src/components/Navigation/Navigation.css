@@ -9,13 +9,11 @@
 }
 
 .normal-nav {
-  display: flex;
   flex-direction: row;
   align-items: center;
+  justify-content: space-between;
   width: 100%;
-  display: flex;
-  flex-direction: row;
-  align-items: center;
+  display: flex;  
   list-style-type: none;
   margin: 0 0 0 44px;
   padding: 0;
@@ -39,7 +37,13 @@
   font-weight: 500;
 }
 
+ .normal-nav__wrapper{
+  display: flex;
+  flex-direction: row;  
+ }
+
 .menu__profile-button {
+  align-self: flex-end;
   width: 100px;
   height: 32px;
   cursor: pointer;
@@ -102,6 +106,7 @@
 
 .menu__link_active {
   font-weight: 500;
+  border-bottom: 2px solid black;
 }
 
 .menu__block-movies {
